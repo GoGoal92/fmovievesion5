@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:padding="5dp">
+
+        <RelativeLayout
+            android:id="@+id/arrr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/cle"
+            android:layout_toStartOf="@+id/cle">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/percent"
+                        android:layout_toStartOf="@+id/percent"
+                        android:layout_weight="1"
+                        android:text="Brouto (20)"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="100 %"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:progress="100"
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/sizedown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/dlstatus"
+                        android:layout_toStartOf="@+id/dlstatus"
+                        android:layout_weight="1"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/dlstatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="Complete"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/cle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_menu_close_clear_cancel" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

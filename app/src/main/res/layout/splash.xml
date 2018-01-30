@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/spl"
+        android:clickable="true"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            style="@style/shadoweffect"
+            android:textSize="24sp"
+            android:text="My FB Movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/textView2" />
+
+        <ImageView
+            android:src="@drawable/appicon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageView"
+            android:layout_above="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="18dp" />
+
+
+        <TextView
+            android:textSize="11sp"
+            android:text="Loading Domain... "
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loading"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

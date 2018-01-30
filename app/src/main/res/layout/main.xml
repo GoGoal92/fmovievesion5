@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backcolor1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout2">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <market.goldandgo.videonew1.API.Zawgyitextview
+            android:id="@+id/toolbartitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:text="Free Gold Spin"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/mainscreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_above="@+id/ad_vi1ew">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/gold" />
+
+                <TextView
+                    style="@style/shadoweffect"
+                    android:layout_gravity="center"
+                    android:id="@+id/remaintimetv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="12 K"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+
+                <TextView
+                    android:gravity="center"
+                    style="@style/shadoweffect"
+                    android:layout_gravity="center"
+                    android:id="@+id/myticket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:text="Multiple : x 1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/wheel"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_myspinwheel" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_myspinwheel_bound">
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/spiniv"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/spin_xml"
+            android:clickable="true" />
+
+        <ProgressBar
+            android:id="@+id/mypg"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/back_tran"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/colorPrimary" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:background="@drawable/transprent">
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/colorPrimary" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/light"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/price"
+            style="@style/shadoweffect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="70"
+            android:textColor="#FFFFFF"
+            android:textSize="54sp"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/time"
+            style="@style/shadoweffect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="00"
+            android:textColor="#FFFFFF"
+            android:textSize="54sp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/fullloading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/transprent"
+            android:clickable="true"
+            android:visibility="gone">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:indeterminate="true" />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/ad_vi1ew"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/ad_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <com.wang.avi.AVLoadingIndicatorView
+
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:indicatorColor="@color/colorPrimaryDark"
+        app:indicatorName="BallPulseSyncIndicator" />
+
+    <include layout="@layout/networkfail" />
+
+</RelativeLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+     >
+
+
+    <TextView
+        android:padding="5dp"
+        android:id="@+id/ppp"
+        android:text="Percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:padding="10dp"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <Button
+        android:id="@+id/download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Download" />
+
+    <Button
+        android:id="@+id/pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Pause  " />
+
+    <Button
+        android:id="@+id/resume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="resume  " />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Delete  " />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Next  " />
+</LinearLayout>

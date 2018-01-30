@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/epclicker"
+            android:background="@drawable/episelector_xml"
+            android:padding="3dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <market.goldandgo.videonew1.API.Zawgyitextview
+                android:id="@+id/epno"
+                android:text="Episode 1"
+                android:padding="3dp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <market.goldandgo.videonew1.API.Zawgyitextview
+                android:id="@+id/epname"
+                android:padding="3dp"
+                android:text="The LOrd Of The Ring"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/reporticon"
+            android:layout_margin="5dp"
+            android:layout_gravity="center|right"
+            android:src="@drawable/ic_view1"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

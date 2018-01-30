@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:background="@android:drawable/ic_menu_close_clear_cancel" />
+
+                <TextView
+                    android:id="@+id/toolbartitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Download Manager"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_margin="5dp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:background="@color/black"
+                    android:layout_margin="10dp"
+                    android:id="@+id/video_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    />
+
+                <ImageView
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/playicon"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/filesizetv"
+                android:text="Loading ..."
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <Button
+                    android:id="@+id/sddown"
+                    android:textColor="@color/white"
+                    android:background="@color/colorAccent"
+                    android:text="SD Download"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/hddown"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimary"
+                    android:text="HD Download"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/ad_vi1ew"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            >
+
+            <RelativeLayout
+                android:id="@+id/ad_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

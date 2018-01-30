@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <TextView
+            android:id="@+id/toolbartitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif"
+            android:text="Download Manager"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <EditText
+            android:id="@+id/ed"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:layout_marginRight="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/btn"
+            android:layout_toStartOf="@+id/btn"
+            android:background="@color/white"
+            android:hint="ENTER MOVIE URL . . ."
+            android:padding="10dp" />
+
+        <Button
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/btn"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/rectanglebtn_click"
+            android:text="DOWNLOAD"
+            android:textColor="@color/black" />
+
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:background="@color/backcolor2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="DOWNLOAD LIST"
+        android:textColor="@color/text_dark_brown"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/main1"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/arrr1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/cle1"
+            android:layout_toStartOf="@+id/cle1">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/name1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/percent1"
+                        android:layout_toStartOf="@+id/percent1"
+                        android:layout_weight="1"
+                        android:text="Brouto (20)"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/percent1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar1"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/sizedown1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/dlstatus1"
+                        android:layout_toStartOf="@+id/dlstatus1"
+                        android:layout_weight="1"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/dlstatus1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="Waiting Network"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/cle1"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+
+                android:id="@+id/play_pause1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@null"  />
+
+
+            <ImageView
+                android:id="@+id/close1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_menu_close_clear_cancel"  />
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/main2"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/arrr2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/cle2"
+            android:layout_toStartOf="@+id/cle2">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/name2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/percent2"
+                        android:layout_toStartOf="@+id/percent2"
+                        android:layout_weight="1"
+                        android:text="Brouto (20)"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/percent2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/sizedown2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/dlstatus2"
+                        android:layout_toStartOf="@+id/dlstatus2"
+                        android:layout_weight="1"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/dlstatus2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="Waiting Network"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/cle2"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+
+                android:id="@+id/play_pause2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/pause"  />
+
+
+            <ImageView
+                android:id="@+id/close2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_menu_close_clear_cancel"  />
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/main3"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/arrr3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/cle3"
+            android:layout_toStartOf="@+id/cle3">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/name3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/percent3"
+                        android:layout_toStartOf="@+id/percent3"
+                        android:layout_weight="1"
+                        android:text="Brouto (20)"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/percent3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar3"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/sizedown3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/dlstatus3"
+                        android:layout_toStartOf="@+id/dlstatus3"
+                        android:layout_weight="1"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/dlstatus3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="Waiting Network"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/cle3"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+
+                android:id="@+id/play_pause3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/pause"  />
+
+
+            <ImageView
+                android:id="@+id/close3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_menu_close_clear_cancel"  />
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/main4"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/arrr4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/cle4"
+            android:layout_toStartOf="@+id/cle4">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/name4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/percent4"
+                        android:layout_toStartOf="@+id/percent4"
+                        android:layout_weight="1"
+                        android:text="Brouto (20)"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/percent4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar4"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/sizedown4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/dlstatus4"
+                        android:layout_toStartOf="@+id/dlstatus4"
+                        android:layout_weight="1"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/dlstatus4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="Waiting Network"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/cle4"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+
+                android:id="@+id/play_pause4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/pause"  />
+
+
+            <ImageView
+                android:id="@+id/close4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_menu_close_clear_cancel"  />
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/main5"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/arrr5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/cle5"
+            android:layout_toStartOf="@+id/cle5">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/name5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/percent5"
+                        android:layout_toStartOf="@+id/percent5"
+                        android:layout_weight="1"
+                        android:text="Brouto (20)"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/percent5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar5"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/sizedown5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/dlstatus5"
+                        android:layout_toStartOf="@+id/dlstatus5"
+                        android:layout_weight="1"
+                        android:text="LOADING"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/dlstatus5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="Waiting Network"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/cle5"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+
+                android:id="@+id/play_pause5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/pause"  />
+
+
+            <ImageView
+                android:id="@+id/close5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/ic_menu_close_clear_cancel"  />
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

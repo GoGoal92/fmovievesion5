@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backcolor1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/appicon" />
+
+
+        <LinearLayout
+            android:id="@+id/serachlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_menu_search" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Search Movies And Series"
+                    android:textColor="@color/tethintcolor"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="30dp"
+                android:background="@color/tethintcolor" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/homerrl"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/listselector_xml">
+
+            <ImageView
+                android:id="@+id/homeiv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_home" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/movierl"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/listselector_xml">
+
+
+            <ImageView
+                android:id="@+id/movieiv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_movieicon1" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/seriesrl"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/listselector_xml">
+
+
+            <ImageView
+                android:id="@+id/seriesiv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_tvicon1" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/menurl"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/listselector_xml">
+
+            <ImageView
+                android:id="@+id/menuiv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_menu" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/above_shadow" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ad_vi1ew">
+
+
+        </android.support.v4.view.ViewPager>
+
+
+        <FrameLayout
+            android:id="@+id/ad_vi1ew"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/ad_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

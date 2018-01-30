@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp" >
+    <ImageView
+        android:src="@drawable/appicon"
+        android:id="@+id/image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="10dp" />
+
+    <market.goldandgo.videonew1.API.Zawgyitextview
+        android:layout_marginTop="5dp"
+        android:textSize="13dp"
+        android:textColor="#000"
+        android:text="Notitext"
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image"
+        />
+</RelativeLayout>

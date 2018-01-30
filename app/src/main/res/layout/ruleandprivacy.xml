@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/backcolor1"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <TextView
+            android:id="@+id/toolbartitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif"
+            android:text="RULES AND POLICIES"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <market.goldandgo.videonew1.API.Zawgyitextview
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="လိုက္နာရမည့္ စည္းကမ္းမ်ား"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <market.goldandgo.videonew1.API.Zawgyitextview
+                    android:background="@color/blue_inner"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="I.  URL LINK "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="1. "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="Facebook ေပၚတြင္တင္ထားေသာ LINK မ်ားသာထည့္ ရမည္ ။
+
+Facebook Link မွာ  Mobile Facebook Link သာ ထည့္ရမည္ ျဖစ္သည္ ။
+
+အေၾကာင္းမွာ OPERATOR(TELENOR ၊ OOREDOO ၊ MPT) မ်ား၏ Facebook Plan သည္ WEB Facebook ကို ေပးထားျခင္းမရွိေသာေၾကာင့္ျဖစ္သည္ ။"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="2. "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="PAGE မွတင္ေသာ  MOVIE မ်ား ၏ Link သည္ ျပသာနာမရွိပါ ။
+
+USER ACCOUNT မွ တင္ေသာ POST မ်ား သည္ FB APP ၏ ေနာက္ဆံုး Version တြင္ျပသာနာ အခ်ိဳ႔ရွိပါသည္  ။
+
+Privacy ပိတ္ထားေသာ (eg  comment ပိတ္ထားေသာ)  POST မ်ား ၏ Link မ်ားမွာ အလုပ္မလုပ္ပါ ။
+
+ထိုအခါ ၄င္း POST အား PUBLIC ျဖင့္ Share ၍ share post ၏ LINK အား ယူသံုးမွ သာ အဆင္ေျပမည္ ျဖစ္ပါသည္ ။
+
+ေသခ်ာေအာင္ မိမိ၏ MOVIE LINK ကို စမ္းသပ္ျပီးမွ တင္ပါ ။
+
+GROUP တြင္ မူရင္း POST ကို Share ၍ တင္ထားေသာ POST ၏ Link  မ်ားယူမသံုးရ ။ထို Link မ်ားမွာ F Movie တြင္ အလုပ္မလုပ္ေသာေၾကာင့္ျဖစ္သည္ ။ မူရင္း POST ၏ Link ကို သာ ထည့္ေပးရပါမယ္ ။"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <market.goldandgo.videonew1.API.Zawgyitextview
+                    android:background="@color/blue_inner"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="II. SPAM	"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="1. "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="F MOVIE ေပၚတြင္ Facebook Movie Link မဟုတ္ဘဲ တစ္ျခား လင့္မ်ားတင္ျခင္း ေၾကာ္ျငာမ်ားတင္ျခင္း ၊ Virus Link မ်ား တင္ျခင္း Malware မ်ားတင္ျခင္း ၊ Account Hack ယူရန္ Fake Link မ်ားတင္ျခင္း မ်ား မျပဳလုပ္ရပါ ။"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="2. "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="Movie အေၾကာင္းကိုေရးသားရာတြင္ အဓိပၸါယ္မရွိေသာ စကားမ်ား ၊ ညစ္ညမ္ရိုင္းစိုင္းေသာ စာလံုးမ်ား အသံုးမျပဳရ ။"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <market.goldandgo.videonew1.API.Zawgyitextview
+                    android:background="@color/blue_inner"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="III Series (အခန္းဆက္ ဇာတ္ကားမ်ား)"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="1. "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <market.goldandgo.videonew1.API.Zawgyitextview
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="ယခု Version တြင္ Series မ်ားတင္ခြင့္မရွိပါ ။ Series မ်ားမွာ ထိန္းသိမ္း ရ ခက္ခဲေနေသးသျဖင့္ တင္ခြင့္မျပဳေသးျခင္းျဖစ္ပါသည္ ။ Post ႏွစ္ခု ခြဲ၍ တင္ထားေသာ Movie မ်ားျဖစ္ပါက ။ Movie နာမည္ ၏ ေနာက္ဆံုးတြင္ Section A B ထည့္ေရးေပးရပါမည္။"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+
+
+
+
+
+            </LinearLayout>
+
+            <market.goldandgo.videonew1.API.Zawgyitextview
+                android:layout_margin="10dp"
+                android:background="#FF0000"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/tethintcolor"
+                android:textStyle="bold"
+                android:text="အထက္ပါ Rule မ်ားမွ အခ်က္တစ္ခ်က္ႏွင့္ ျဖစ္ေစ ျငိစြန္းေနသည္ ရွိခဲ့ေသာ သင္၏ Movie အား ဖ်က္ခ်ျခင္း ၊ ျပန္လည္ျပန္ဆင္ခြင့္ ျပဳေစျခင္း သို႔မဟုတ္ သင့္အား Video တင္ခြင့္ ပိတ္ပင္မႈမ်ား ျပဳလုပ္ျပီး အေရးယူသြားမည္ ျဖစ္ပါသည္ ။"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/agree"
+                android:textColor="@color/white"
+                android:layout_margin="10dp"
+                android:background="@color/blue_out"
+                android:text="AGREE AND ACCEPT"
+                android:textSize="14sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>
