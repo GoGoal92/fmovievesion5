@@ -8,8 +8,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -191,7 +193,14 @@ public class Upload extends AppCompatActivity {
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             // indicate image type and Uri
             File f = new File(picUri);
-            Uri contentUri = Uri.fromFile(f);
+            Uri contentUri=null;
+
+            if(Build.VERSION.SDK_INT>=24){
+                contentUri = FileProvider.getUriForFile(ac,BuildConfig.APPLICATION_ID + ".provider",f);//Uri.fromFile(f);
+            }else{
+                contentUri=Uri.fromFile(f);
+            }
+
 
             cropIntent.setDataAndType(contentUri, "image/*");
             // set crop properties
