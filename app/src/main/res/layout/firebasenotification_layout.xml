@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:background="@drawable/appicon"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <market.goldandgo.videonew1.API.Zawgyitextview
+            android:id="@+id/notitext"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:text="Firebase Noti"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

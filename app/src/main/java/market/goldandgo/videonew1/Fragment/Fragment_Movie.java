@@ -39,6 +39,7 @@ import market.goldandgo.videonew1.Object.Constant;
 import market.goldandgo.videonew1.Object.Jsonparser;
 import market.goldandgo.videonew1.Object.get;
 import market.goldandgo.videonew1.R;
+import market.goldandgo.videonew1.Utils.MySpinner;
 
 /**
  * Created by Go Goal on 9/26/2017.
@@ -77,7 +78,7 @@ public class Fragment_Movie extends Fragment {
 
     }
 
-    static Spinner sp;
+    static MySpinner sp;
     static ArrayList<get> clist, list;
     static RecyclerView rv;
     LinearLayoutManager llm;
@@ -98,10 +99,35 @@ public class Fragment_Movie extends Fragment {
         eg.setTitle("LATEST MOVIES");
         clist.add(eg);
 
-        sp = (Spinner) v.findViewById(R.id.spinner2);
+        sp = (MySpinner) v.findViewById(R.id.spinner2);
            adapteree = new Spinneradapter(ac, clist);
          sp.setAdapter(adapteree);
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                Log.e("spposition",position+"");
+
+
+                if (position == 0) {
+                    cate = 0 + "";
+                } else {
+                    cate = clist.get(position).getMid() + "";
+                }
+
+
+                MyRequest.getseeallMoviespinner(count + "", cate);
+                rv.setVisibility(View.GONE);
+                pg.setVisibility(View.VISIBLE);
+                pg.show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.e("onNothingSelected","true");
+            }
+        });
         pg = (AVLoadingIndicatorView) v.findViewById(R.id.avi);
         mainlayout = (LinearLayout) v.findViewById(R.id.mainrlayout);
         network = (RelativeLayout) v.findViewById(R.id.networkerro);
@@ -181,27 +207,7 @@ public class Fragment_Movie extends Fragment {
         clist = Jsonparser.getcatelist(s);
         adapteree.refresh(clist);
 
-        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    cate = 0 + "";
-                } else {
-                    cate = clist.get(position).getMid() + "";
-                }
 
-                MyRequest.getseeallMoviespinner(count + "", cate);
-                rv.setVisibility(View.GONE);
-                pg.setVisibility(View.VISIBLE);
-                pg.show();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
         adapter.refresh(list);
@@ -252,6 +258,33 @@ public class Fragment_Movie extends Fragment {
         adapteree = new Spinneradapter(ac, clist);
         sp.setAdapter(adapteree);*/
 
+      /*  sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.e("spposition",position+"");
+
+
+                if (position == 0) {
+                    cate = 0 + "";
+                } else {
+                    cate = clist.get(position).getMid() + "";
+                }
+
+
+
+                MyRequest.getseeallMoviespinner(count + "", cate);
+                rv.setVisibility(View.GONE);
+                pg.setVisibility(View.VISIBLE);
+                pg.show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
 
 
         adapter.refresh(list);

@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <Spinner
+                    <market.goldandgo.videonew1.Utils.MySpinner
 
                         android:id="@+id/spinner2"
                         android:layout_width="match_parent"

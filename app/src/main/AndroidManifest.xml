@@ -146,6 +146,23 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
+
+        <service android:name=".service.Firebaseservcie" />
+
+        <receiver android:name=".service.Networkreceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".service.rebotreceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

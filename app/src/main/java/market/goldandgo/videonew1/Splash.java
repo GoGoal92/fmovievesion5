@@ -36,6 +36,7 @@ import market.goldandgo.videonew1.Object.Downloadlist;
 import market.goldandgo.videonew1.Object.Jsonparser;
 import market.goldandgo.videonew1.Object.phoneid;
 import market.goldandgo.videonew1.Utils.Myalertdialog;
+import market.goldandgo.videonew1.service.Firebaseservcie;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -47,6 +48,13 @@ public class Splash extends AppCompatActivity implements EasyPermissions.Permiss
 
     TextView loading;
     static AppCompatActivity ac;
+    static  boolean firsttime=false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firsttime=false;
+    }
 
     private boolean appInstalledOrNot(String uri) {
         PackageManager pm = getPackageManager();
@@ -66,6 +74,7 @@ public class Splash extends AppCompatActivity implements EasyPermissions.Permiss
 
         ac = this;
         Constant.generateapi(ac);
+        startService(new Intent(ac,Firebaseservcie.class));
 
 
 
@@ -142,6 +151,8 @@ public class Splash extends AppCompatActivity implements EasyPermissions.Permiss
                     firebase.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (!firsttime){
                             HashMap<String, String> valuee = (HashMap) dataSnapshot.getValue();
                             String host = valuee.get("Url");
                             String host1 = valuee.get("host1");
@@ -152,8 +163,11 @@ public class Splash extends AppCompatActivity implements EasyPermissions.Permiss
 
 
 
-                            MyRequest.checkversion();
-                            loading.setText("Checking App Version (6.3)");
+                                MyRequest.checkversion();
+                                loading.setText("Checking App Version (6.3)");
+                                firsttime=true;
+                            }
+
 
                         }
 
@@ -337,6 +351,7 @@ public class Splash extends AppCompatActivity implements EasyPermissions.Permiss
 
                         }
                     });
+
 
 
                 }
