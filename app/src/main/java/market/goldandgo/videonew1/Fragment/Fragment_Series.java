@@ -42,6 +42,7 @@ import market.goldandgo.videonew1.Object.Jsonparser;
 import market.goldandgo.videonew1.Object.get;
 import market.goldandgo.videonew1.R;
 import market.goldandgo.videonew1.SeriesDetail;
+import market.goldandgo.videonew1.Utils.MySpinner;
 import market.goldandgo.videonew1.Utils.calculate_st;
 
 /**
@@ -74,30 +75,74 @@ public class Fragment_Series extends Fragment {
 
     }
 
-    static ArrayList<get>  list;
+    static ArrayList<get> list, clist,list1,list2,list3,list4;
+    static Spinneradapter adapteree;
     static RecyclerView rv;
     LinearLayoutManager llm;
     static Series_seealladapter adapter;
-    static  String cate="0";
+    static String cate = "0";
     static AVLoadingIndicatorView pg;
     static LinearLayout mainlayout;
-    static RelativeLayout network,buylaout;
-    static TextView priceinfo,totalseries;
-    static Button buy,cancel,okay;
+    static RelativeLayout network, buylaout;
+    static TextView priceinfo, totalseries;
+    static Button buy, cancel, okay;
+    static MySpinner sp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.series, container, false);
 
-        pg= (AVLoadingIndicatorView) v.findViewById(R.id.avi);
-        mainlayout= (LinearLayout) v.findViewById(R.id.mainrlayout);
-        network= (RelativeLayout) v.findViewById(R.id.networkerro);
-        buylaout= (RelativeLayout) v.findViewById(R.id.buyalert);
-        priceinfo= (TextView) v.findViewById(R.id.price);
-        totalseries= (TextView) v.findViewById(R.id.totalseries);
-        buy= (Button) v.findViewById(R.id.buy);
-        cancel= (Button) v.findViewById(R.id.cancel);
-        okay= (Button) v.findViewById(R.id.okay);
+
+        clist = new ArrayList<>();
+        get eg1 = new get();
+        eg1.setTitle("LATEST SERIES");
+        clist.add(eg1);
+
+        get eg2 = new get();
+        eg2.setTitle("ENGLISH SERIES");
+        clist.add(eg2);
+
+        get eg3 = new get();
+        eg3.setTitle("KOREA SERIES");
+        clist.add(eg3);
+
+        get eg4 = new get();
+        eg4.setTitle("CHINA SERIES");
+        clist.add(eg4);
+
+
+        get eg5 = new get();
+        eg5.setTitle("ANIME SERIES");
+        clist.add(eg5);
+
+        sp = (MySpinner) v.findViewById(R.id.spinner2);
+        adapteree = new Spinneradapter(ac, clist);
+        sp.setAdapter(adapteree);
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+                changetype(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        pg = (AVLoadingIndicatorView) v.findViewById(R.id.avi);
+        mainlayout = (LinearLayout) v.findViewById(R.id.mainrlayout);
+        network = (RelativeLayout) v.findViewById(R.id.networkerro);
+        buylaout = (RelativeLayout) v.findViewById(R.id.buyalert);
+        priceinfo = (TextView) v.findViewById(R.id.price);
+        totalseries = (TextView) v.findViewById(R.id.totalseries);
+        buy = (Button) v.findViewById(R.id.buy);
+        cancel = (Button) v.findViewById(R.id.cancel);
+        okay = (Button) v.findViewById(R.id.okay);
 
         okay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +173,7 @@ public class Fragment_Series extends Fragment {
 
         pg.show();
 
-        Button reload= (Button) v.findViewById(R.id.reload);
+        Button reload = (Button) v.findViewById(R.id.reload);
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,8 +195,37 @@ public class Fragment_Series extends Fragment {
         rv.setAdapter(adapter);
 
 
-
         return v;
+    }
+
+    private void changetype(int position) {
+
+        if (position == 0) {
+
+            adapter.refresh(list);
+
+        }
+
+        if (position == 1) {
+            adapter.refresh(list1);
+
+        }
+
+        if (position == 2) {
+            adapter.refresh(list2);
+
+        }
+
+        if (position == 3) {
+            adapter.refresh(list3);
+
+        }
+
+        if (position == 4) {
+            adapter.refresh(list4);
+
+        }
+
     }
 
 
@@ -166,9 +240,20 @@ public class Fragment_Series extends Fragment {
         rv.setVisibility(View.VISIBLE);
 
         list = new ArrayList<>();
+        list1 = new ArrayList<>();
+        list2 = new ArrayList<>();
+        list3 = new ArrayList<>();
+        list4 = new ArrayList<>();
+
         list = Jsonparser.getseriesalllist(s);
+        list1 = Jsonparser.getseriesalllist1(s,1+"");
+        list2 = Jsonparser.getseriesalllist1(s,2+"");
+        list3 = Jsonparser.getseriesalllist1(s,3+"");
+        list4 = Jsonparser.getseriesalllist1(s,4+"");
+
+
         totalseries.setVisibility(View.VISIBLE);
-        totalseries.setText(Html.fromHtml("<b>Total Series "+list.size()+"</b>"));
+        totalseries.setText(Html.fromHtml("<b>Total Series " + list.size() + "</b>"));
 
 
         adapter.refresh(list);
@@ -181,12 +266,12 @@ public class Fragment_Series extends Fragment {
         for (int i = 0; i < list.size(); i++) {
 
 
-            File fi = new File(Constant.datalocation_scover + "s"+list.get(i).getMid() + ".fmovie");
+            File fi = new File(Constant.datalocation_scover + "s" + list.get(i).getMid() + ".fmovie");
             if (!fi.exists()) {
 
-                if (progressimage.equals("0")){
-                    Log.e("current",list.get(i).getMid());
-                    progressimage=list.get(i).getMid();
+                if (progressimage.equals("0")) {
+                    Log.e("current", list.get(i).getMid());
+                    progressimage = list.get(i).getMid();
                     new Downloadseeallmovie(list.get(i).getImage(), list.get(i).getMid()).execute();
                     break;
                 }
@@ -208,8 +293,8 @@ public class Fragment_Series extends Fragment {
     static int posti;
 
     public static void showbutalert(String price, String mid, String titlr, int i) {
-        posti=i;
-        buymid=mid;
+        posti = i;
+        buymid = mid;
         cancel.setEnabled(true);
         buy.setEnabled(true);
         cancel.setVisibility(View.VISIBLE);
@@ -218,7 +303,7 @@ public class Fragment_Series extends Fragment {
         cancel.setBackgroundColor(ac.getResources().getColor(R.color.colorAccent));
         buy.setBackgroundColor(ac.getResources().getColor(R.color.blue_inner));
 
-        priceinfo.setText(Html.fromHtml("<b>"+titlr+"<b><br><br>ဤ ဇာတ္လမ္းအား ၾကည့္ရႈ႕ရန္ က်သင့္သည့္ တန္ဖိုးမွာ "+ calculate_st.format(Long.parseLong(price))+" Gold ျဖစ္သည္ <br>သင္ဝယ္ယူမည္မွာ ေသခ်ာပါသလား ?"));
+        priceinfo.setText(Html.fromHtml("<b>" + titlr + "<b><br><br>ဤ ဇာတ္လမ္းအား ၾကည့္ရႈ႕ရန္ က်သင့္သည့္ တန္ဖိုးမွာ " + calculate_st.format(Long.parseLong(price)) + " Gold ျဖစ္သည္ <br>သင္ဝယ္ယူမည္မွာ ေသခ်ာပါသလား ?"));
     }
 
     public static void Feedback_buyError() {
@@ -231,8 +316,8 @@ public class Fragment_Series extends Fragment {
 
     public static void Feedback_buy(String s) {
 
-        String sta=Jsonparser.getonestring(s,"status");
-        if (sta.equals("1")){
+        String sta = Jsonparser.getonestring(s, "status");
+        if (sta.equals("1")) {
             buylaout.setVisibility(View.GONE);
             Intent it = new Intent(ac, SeriesDetail.class);
             it.putExtra("mid", list.get(posti).getMid());
@@ -246,7 +331,7 @@ public class Fragment_Series extends Fragment {
 
             list.get(posti).setMine("true");
             adapter.refresh(list);
-        }else{
+        } else {
             cancel.setVisibility(View.GONE);
             buy.setVisibility(View.GONE);
             okay.setVisibility(View.VISIBLE);
@@ -273,7 +358,7 @@ public class Fragment_Series extends Fragment {
             try {
                 url = new URL(imgurl);
                 bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                File file = new File(Constant.datalocation_scover +"s"+ imagename + ".fmovie");
+                File file = new File(Constant.datalocation_scover + "s" + imagename + ".fmovie");
 
                 FileOutputStream stream = null;
                 try {
@@ -305,7 +390,7 @@ public class Fragment_Series extends Fragment {
             super.onPostExecute(aVoid);
             adapter.refresh(list);
             adapter.load_pg(false);
-            progressimage="0";
+            progressimage = "0";
             Imagecondition();
         }
     }

@@ -251,6 +251,7 @@ public class Jsonparser {
                 eg.setImage(path);
                 eg.setPrice(c1.getString("price"));
                 eg.setMine(c1.getString("mine"));
+                eg.setSeriescate(c1.getString("cat"));
 
                 list.add(eg);
             }
@@ -261,6 +262,42 @@ public class Jsonparser {
         }
         return list;
     }
+
+    public static ArrayList<get> getseriesalllist1(String s,String po) {
+        ArrayList<get> list = new ArrayList<>();
+        try {
+
+            JSONArray id = new JSONArray(s);
+            for (int i = 0; i < id.length(); i++) {
+                JSONObject c1 = id.getJSONObject(i);
+                if (c1.getString("cat").equals(po)) {
+                    get eg = new get();
+                    eg.setMid(c1.getString("mid"));
+                    eg.setCategory(c1.getString("category"));
+                    eg.setTitle(Constant.cleanstring(c1.getString("title"), c1.getString("vstatus")));
+                    eg.setLike(calculate_st.format(Long.parseLong(c1.getString("like"))));
+                    eg.setView(calculate_st.format(Long.parseLong(c1.getString("view"))));
+                    eg.setDetail(Constant.cleanstring(c1.getString("detail"), c1.getString("vstatus")));
+                    String path = Constant.seriesrcoverphoto + c1.getString("image");
+                    eg.setImage(path);
+                    eg.setPrice(c1.getString("price"));
+                    eg.setMine(c1.getString("mine"));
+                    eg.setSeriescate(c1.getString("cat"));
+
+                    list.add(eg);
+                }
+            }
+
+
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+
+
+
 
     public static ArrayList<get> getseriesrated(String s, String top) {
         ArrayList<get> list = new ArrayList<>();

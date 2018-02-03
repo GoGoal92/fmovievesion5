@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -47,6 +48,7 @@ public class Myexoplayer extends AppCompatActivity  {
     private boolean shouldAutoPlay;
     private DataSource.Factory mediaDataSourceFactory;
     AVLoadingIndicatorView pg;
+    AppCompatActivity ac;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class Myexoplayer extends AppCompatActivity  {
         setContentView(R.layout.exo_main);
         pg= (AVLoadingIndicatorView) findViewById(R.id.imgpg);
         pg.show();
+        ac=this;
 
 //Remove notification bar
         url=getIntent().getExtras().getString("url");
@@ -101,15 +104,17 @@ public class Myexoplayer extends AppCompatActivity  {
 
             @Override
             public void onLoadingChanged(boolean isLoading) {
-
+                    if (isLoading){
+                        pg.setVisibility(View.VISIBLE);
+                        pg.show();
+                    }
             }
 
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                 switch(playbackState) {
                     case ExoPlayer.STATE_BUFFERING:
-                        pg.setVisibility(View.VISIBLE);
-                        pg.show();
+
                         break;
                     case ExoPlayer.STATE_ENDED:
                         //do what you want
@@ -122,12 +127,16 @@ public class Myexoplayer extends AppCompatActivity  {
 
                         break;
                     default:
+
                         break;
                 }
             }
 
             @Override
             public void onPlayerError(ExoPlaybackException error) {
+
+                ac.finish();
+                Toast.makeText(ac,"Network Fail",Toast.LENGTH_SHORT).show();
 
             }
 

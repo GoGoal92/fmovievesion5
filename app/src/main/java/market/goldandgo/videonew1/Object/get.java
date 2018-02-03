@@ -9,8 +9,16 @@ import android.widget.RelativeLayout;
 
 public class get {
 
-    String mid,title,like,view,image,episode,category,detail,murl,reportcount,price,mine;
+    String mid,title,like,view,image,episode,category,detail,murl,reportcount,price,mine,seriescate;
     int baclgrouund;
+
+    public String getSeriescate() {
+        return seriescate;
+    }
+
+    public void setSeriescate(String seriescate) {
+        this.seriescate = seriescate;
+    }
 
     public String getPrice() {
         return price;

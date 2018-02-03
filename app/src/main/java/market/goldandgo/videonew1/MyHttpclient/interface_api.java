@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 public interface interface_api {
 
     @FormUrlEncoded
-    @POST("v6.3/Checkversion")
+    @POST("v6.4/Checkversion")
     Call<String> Checkversion(@Field("api") String name, @Field("pid") String pid);
 
     @FormUrlEncoded

@@ -2,6 +2,9 @@ package market.goldandgo.videonew1;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,6 +40,7 @@ import market.goldandgo.videonew1.Object.Jsonparser;
 import market.goldandgo.videonew1.Object.phoneid;
 import market.goldandgo.videonew1.Utils.Myalertdialog;
 import market.goldandgo.videonew1.service.Firebaseservcie;
+import market.goldandgo.videonew1.service.Networkreceiver;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -67,6 +71,8 @@ public class Splash extends AppCompatActivity implements EasyPermissions.Permiss
         return false;
     }
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +80,16 @@ public class Splash extends AppCompatActivity implements EasyPermissions.Permiss
 
         ac = this;
         Constant.generateapi(ac);
+
+
+        Intent ll24 = new Intent(ac, Networkreceiver.class);
+        PendingIntent recurringLl24 = PendingIntent.getBroadcast(ac, 0, ll24, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarms = (AlarmManager) getSystemService(ac.ALARM_SERVICE);
+        alarms.setRepeating(AlarmManager.RTC_WAKEUP, 1000, AlarmManager.INTERVAL_HOUR, recurringLl24); // Log repetition
+
         startService(new Intent(ac,Firebaseservcie.class));
+
+
 
 
 
@@ -164,7 +179,7 @@ public class Splash extends AppCompatActivity implements EasyPermissions.Permiss
 
 
                                 MyRequest.checkversion();
-                                loading.setText("Checking App Version (6.3)");
+                                loading.setText("Checking App Version (6.4)");
                                 firsttime=true;
                             }
 

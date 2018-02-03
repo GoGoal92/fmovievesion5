@@ -22,7 +22,7 @@ public class Downloadlist {
     public static ArrayList<String> listtaskToken = new ArrayList<>();
     public static ArrayList<String> liststatus = new ArrayList<>();
     public static ArrayList<String> listurl = new ArrayList<>();
-    private static AppCompatActivity context;
+    private static Context context;
     static SharedPreferences prefs;
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
@@ -139,7 +139,7 @@ public class Downloadlist {
 
     }
 
-    public static void setcontext(AppCompatActivity context) {
+    public static void setcontext(Context context) {
         Downloadlist.context = context;
         prefs = context.getSharedPreferences("dlist",
                 Context.MODE_PRIVATE);

@@ -1,5 +1,6 @@
 package market.goldandgo.videonew1.service;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,8 +9,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -43,6 +46,10 @@ public class Firebaseservcie extends Service {
     public void onCreate() {
         super.onCreate();
 
+        Downloadlist.setcontext(getApplicationContext());
+
+       // showForegroundNotification("fmovie");
+
         Firebase firebase = new Firebase(Constant.FIREBASE_APP);
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,18 +69,23 @@ public class Firebaseservcie extends Service {
                     editor.commit();
                     f.mkdir();
                 } else {
-                    String msgid = prefs.getString("msgid", null);
-                 //   Toast.makeText(getApplicationContext(), msgid, Toast.LENGTH_SHORT).show();
-                    if (!msgid.equals(msgid_firebase)) {
 
-               //         Toast.makeText(getApplicationContext(), msg_firebase, Toast.LENGTH_SHORT).show();
+                    try{
+                        String msgid = prefs.getString("msgid", null);
+                        if (!msgid.equals(msgid_firebase)) {
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("msgid", msgid_firebase);
+                            editor.commit();
+                            postNotif(msg_firebase);
+
+
+                        }
+                    }catch (Exception e){
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("msgid", msgid_firebase);
                         editor.commit();
-                        postNotif(msg_firebase);
-
-
                     }
+
 
 
                 }
@@ -114,5 +126,55 @@ public class Firebaseservcie extends Service {
         notificationManager.notify(1, notification);
 
 
+    }
+
+    private void showForegroundNotification(String contentText) {
+        // Create intent that will bring our app to the front, as if it was tapped in the app
+        // launcher
+        Intent showTaskIntent = new Intent(getApplicationContext(), Splash.class);
+        showTaskIntent.setAction(Intent.ACTION_MAIN);
+        showTaskIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        showTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(
+                getApplicationContext(),
+                0,
+                showTaskIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new Notification.Builder(getApplicationContext())
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(contentText)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setWhen(System.currentTimeMillis())
+                .setContentIntent(contentIntent)
+                .build();
+        startForeground(1, notification);
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+
+        Intent intent = new Intent("com.android.gogoal");
+        intent.putExtra("stop", "restart");
+        sendBroadcast(intent);
+        startService(new Intent(getApplicationContext(), Firebaseservcie.class));
+        showForegroundNotification("fmovie");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Intent intent = new Intent("com.android.gogoal");
+        intent.putExtra("stop", "restart");
+        sendBroadcast(intent);
+        startService(new Intent(getApplicationContext(), Firebaseservcie.class));
+        showForegroundNotification("fmovie");
     }
 }

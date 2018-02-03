@@ -58,6 +58,8 @@ public class MydownloadService extends Service {
 
 
         }*/
+        Intent background = new Intent(getApplicationContext(), Firebaseservcie.class);
+        startService(background);
         super.onDestroy();
     }
 
@@ -67,19 +69,18 @@ public class MydownloadService extends Service {
     }
 
 
-
     @Override
     public void onCreate() {
         super.onCreate();
 
 
-        con=this;
-        mdb=new Mydatabase(getApplicationContext());
-        list=new ArrayList<>();
-        list= mdb.getlist();
+        con = this;
+        mdb = new Mydatabase(getApplicationContext());
+        list = new ArrayList<>();
+        list = mdb.getlist();
 
 
-        dm=new DownloadManagerPro(getApplicationContext());
+        dm = new DownloadManagerPro(getApplicationContext());
 
 
         dm.init(Constant.DM_downloadfolder, 10, new DownloadManagerListener() {
@@ -98,15 +99,20 @@ public class MydownloadService extends Service {
 
 
                 bi.putExtra("taskId", taskId);
-                int pp= (int) percent;
+                int pp = (int) percent;
                 bi.putExtra("mypercent", pp);
                 bi.putExtra("status", "downloaing");
                 bi.putExtra("downloadedLength", downloadedLength);
                 sendBroadcast(bi);
-                noti((int)percent,taskId,"downloading",mdb.getdetailname(taskId));
+                String dnmae = "fmovie";
+                try {
+                    dnmae = mdb.getdetailname(taskId);
+                } catch (Exception e) {
+                    dnmae = "fmovie";
 
+                }
 
-
+                noti((int) percent, taskId, "downloading", dnmae);
 
 
             }
@@ -123,7 +129,16 @@ public class MydownloadService extends Service {
                 bi.putExtra("status", "rebuilding");
                 bi.putExtra("downloadedLength", 0);
                 sendBroadcast(bi);
-                noti(99,taskId,"rebuilding",mdb.getdetailname(taskId));
+
+                String dnmae = "fmovie";
+                try {
+                    dnmae = mdb.getdetailname(taskId);
+                } catch (Exception e) {
+                    dnmae = "fmovie";
+
+                }
+
+                noti(99, taskId, "rebuilding", dnmae);
             }
 
             @Override
@@ -139,7 +154,15 @@ public class MydownloadService extends Service {
                 bi.putExtra("downloadedLength", 0);
                 sendBroadcast(bi);
                 mdb.update_complete(taskId);
-                noti(100,taskId,"complete",mdb.getdetailname(taskId));
+                String dnmae = "fmovie";
+                try {
+                    dnmae = mdb.getdetailname(taskId);
+                } catch (Exception e) {
+                    dnmae = "fmovie";
+
+                }
+
+                noti(100, taskId, "complete", dnmae);
 
             }
 
@@ -151,16 +174,23 @@ public class MydownloadService extends Service {
                 bi.putExtra("downloadedLength", 0);
                 sendBroadcast(bi);
                 dm.pauseDownload((int) taskId);
-                noti(0,taskId,"retry",mdb.getdetailname(taskId));
+                String dnmae = "fmovie";
+                try {
+                    dnmae = mdb.getdetailname(taskId);
+                } catch (Exception e) {
+                    dnmae = "fmovie";
+
+                }
+                noti(0, taskId, "retry", dnmae);
 
 
             }
         });
 
 
-        for (int i=0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
 
-            if (list.get(i).getDmstatus().equals("1")){
+            if (list.get(i).getDmstatus().equals("1")) {
                 try {
 
                     dm.startDownload(Integer.parseInt(list.get(i).getTasktoken()));
@@ -171,20 +201,15 @@ public class MydownloadService extends Service {
             }
 
 
-
-
-
         }
-
-
 
 
     }
 
     static NotificationManager notificationManager;
 
-    public  void noti(int percent,long taskidnoti,String status,String name){
-        Intent intent = new Intent(con,Mydownloadmanager.class);
+    public void noti(int percent, long taskidnoti, String status, String name) {
+        Intent intent = new Intent(con, Mydownloadmanager.class);
         final PendingIntent pendingIntent = PendingIntent.getActivity(
                 getApplicationContext(), 0, intent, 0);
         Notification notification = new Notification(R.drawable.appicon,
@@ -196,7 +221,7 @@ public class MydownloadService extends Service {
         notification.contentIntent = pendingIntent;
 
         notification.contentView.setTextViewText(R.id.percent_text,
-                percent+" %");
+                percent + " %");
         notification.contentView.setTextViewText(R.id.download_text,
                 name);
         notification.contentView.setProgressBar(R.id.progressBar1, 100,
@@ -204,22 +229,20 @@ public class MydownloadService extends Service {
         getApplicationContext();
         notificationManager = (NotificationManager) getApplicationContext()
                 .getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify((int)taskidnoti, notification);
-        if (status.equals("complete")){
-            notificationManager.cancel((int)taskidnoti);
+        notificationManager.notify((int) taskidnoti, notification);
+        if (status.equals("complete")) {
+            notificationManager.cancel((int) taskidnoti);
         }
-
-
 
 
     }
 
     public static void deletetask(String tasktoken) {
-        int taskid=Integer.parseInt(tasktoken);
-        try{
-            notificationManager.cancel((int)taskid);
-            dm.delete(taskid,true);
-        }catch (Exception e){
+        int taskid = Integer.parseInt(tasktoken);
+        try {
+            notificationManager.cancel((int) taskid);
+            dm.delete(taskid, true);
+        } catch (Exception e) {
             Mydownloadmanager.reload();
         }
 
@@ -227,17 +250,17 @@ public class MydownloadService extends Service {
     }
 
     public static void pausetask(String tasktoken) {
-        int taskid=Integer.parseInt(tasktoken);
-        try{
+        int taskid = Integer.parseInt(tasktoken);
+        try {
             dm.pauseDownload(taskid);
-        }catch (Exception e){
+        } catch (Exception e) {
             Mydownloadmanager.reload();
         }
 
     }
 
     public static void startdownload(String tasktoken) {
-        int taskid=Integer.parseInt(tasktoken);
+        int taskid = Integer.parseInt(tasktoken);
         try {
             dm.startDownload(taskid);
         } catch (Exception e) {
