@@ -49,13 +49,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <market.goldandgo.videonew1.Utils.MySpinner
-
-                        android:id="@+id/spinner2"
+                    <TextView
+                        android:id="@+id/testingHello"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="Hello"/>
 
-                        android:spinnerMode="dropdown" />
+                    <!--<market.goldandgo.videonew1.Utils.MySpinner-->
+
+                        <!--android:id="@+id/spinner2"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+
+                        <!--android:spinnerMode="dropdown" />-->
 
                 </LinearLayout>
 

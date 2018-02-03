@@ -8,18 +8,24 @@ import android.app.Application;
 
 import com.firebase.client.Firebase;
 
-public class MyApplication extends Application{
+public class MyApplication extends Application {
+    private static MyApplication mInstance;
 
     public MyApplication() {
     }
 
 
+    public static synchronized MyApplication getInstance() {
+        return mInstance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         //Initializing firebase
         Firebase.setAndroidContext(getApplicationContext());
+        mInstance = this;
+
 
     }
 }

@@ -74,6 +74,7 @@ public class Constant {
         } catch (NoSuchAlgorithmException e) {
             
         }
+        apikey = "YDkqHcl3/XYGDVemFr/Ztl3UN3s=\n";
     }
 
     public static void seturl(String hostv, String host1v, String hostfilev,String ban,String adfly) {

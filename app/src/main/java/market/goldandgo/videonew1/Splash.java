@@ -41,6 +41,7 @@ import market.goldandgo.videonew1.Object.phoneid;
 import market.goldandgo.videonew1.Utils.Myalertdialog;
 import market.goldandgo.videonew1.service.Firebaseservcie;
 import market.goldandgo.videonew1.service.Networkreceiver;
+import market.goldandgo.videonew1.service.NotificationUtils;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -77,7 +78,7 @@ public class Splash extends AppCompatActivity implements EasyPermissions.Permiss
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
+        NotificationUtils.clearNotifications();
         ac = this;
         Constant.generateapi(ac);
 

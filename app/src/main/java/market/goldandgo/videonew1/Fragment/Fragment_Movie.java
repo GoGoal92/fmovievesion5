@@ -1,5 +1,6 @@
 package market.goldandgo.videonew1.Fragment;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -14,11 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.wang.avi.AVLoadingIndicatorView;
@@ -47,8 +46,11 @@ import market.goldandgo.videonew1.Utils.MySpinner;
 
 public class Fragment_Movie extends Fragment {
 
-
+    private static Object[] objDays;
+    private int defaultSelect;
     private static ArrayList<get> catelist;
+    private TextView textView;
+    private String[] arr;
 
     public static Fragment_Movie newInstance() {
         Bundle args = new Bundle();
@@ -76,6 +78,26 @@ public class Fragment_Movie extends Fragment {
         ac = getActivity();
         //MyRequest.getseeallMovie(count + "","0");
 
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        textView = (TextView) getActivity().findViewById(R.id.testingHello);
+        textView.setText("LATEST MOVIES");
+        defaultSelect=0;
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 arr = new String[clist.size()];
+                for (int i = 0; i < clist.size(); i++) {
+                    arr[i] = clist.get(i).getTitle();
+                }
+                yearOnclick(arr);
+            }
+        });
+
     }
 
     static MySpinner sp;
@@ -99,39 +121,39 @@ public class Fragment_Movie extends Fragment {
         eg.setTitle("LATEST MOVIES");
         clist.add(eg);
 
-        sp = (MySpinner) v.findViewById(R.id.spinner2);
-           adapteree = new Spinneradapter(ac, clist);
-         sp.setAdapter(adapteree);
-        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Log.e("spposition",position+"");
-
-
-                if (position == 0) {
-                    cate = 0 + "";
-                } else {
-                    cate = clist.get(position).getMid() + "";
-                }
-
-
-                MyRequest.getseeallMoviespinner(count + "", cate);
-                rv.setVisibility(View.GONE);
-                pg.setVisibility(View.VISIBLE);
-                pg.show();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.e("onNothingSelected","true");
-            }
-        });
+//        sp = (MySpinner) v.findViewById(R.id.spinner2);
+//           adapteree = new Spinneradapter(ac, clist);
+//         sp.setAdapter(adapteree);
+//        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Log.e("spposition",position+"");
+//
+//
+//                if (position == 0) {
+//                    cate = 0 + "";
+//                } else {
+//                    cate = clist.get(position).getMid() + "";
+//                }
+//
+//
+//                MyRequest.getseeallMoviespinner(count + "", cate);
+//                rv.setVisibility(View.GONE);
+//                pg.setVisibility(View.VISIBLE);
+//                pg.show();
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                Log.e("onNothingSelected","true");
+//            }
+//        });
         pg = (AVLoadingIndicatorView) v.findViewById(R.id.avi);
         mainlayout = (LinearLayout) v.findViewById(R.id.mainrlayout);
         network = (RelativeLayout) v.findViewById(R.id.networkerro);
-        totalmovie= (TextView) v.findViewById(R.id.totalmovie);
+        totalmovie = (TextView) v.findViewById(R.id.totalmovie);
 
         pg.show();
 
@@ -184,7 +206,6 @@ public class Fragment_Movie extends Fragment {
         });
 
 
-
         return v;
     }
 
@@ -202,12 +223,13 @@ public class Fragment_Movie extends Fragment {
         list = new ArrayList<>();
         list = Jsonparser.getMoviealllist(s);
 
-        totalmovie.setText(Html.fromHtml("<b>Total Movies "+Jsonparser.getonestring(s,"moviecount")+"</b>"));
+        totalmovie.setText(Html.fromHtml("<b>Total Movies " + Jsonparser.getonestring(s, "moviecount") + "</b>"));
 
         clist = Jsonparser.getcatelist(s);
+        objDays = clist.toArray();
+
+
         adapteree.refresh(clist);
-
-
 
 
         adapter.refresh(list);
@@ -370,5 +392,34 @@ public class Fragment_Movie extends Fragment {
             progressimage = "0";
             Imagecondition();
         }
+    }
+
+    private void yearOnclick(final String[] yearArr) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext(), R.style.MyAlertDialogTheme);
+        builder.setTitle("Please select Movie Types");
+        builder.setSingleChoiceItems(yearArr, defaultSelect, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                defaultSelect = which;
+                textView.setText(arr[defaultSelect]);
+
+                if (defaultSelect == 0) {
+                    cate = 0 + "";
+                } else {
+                    cate = clist.get(defaultSelect).getMid() + "";
+                }
+
+
+                MyRequest.getseeallMoviespinner(count + "", cate);
+                rv.setVisibility(View.GONE);
+                pg.setVisibility(View.VISIBLE);
+                pg.show();
+                dialog.dismiss();
+            }
+        });
+
+
+        builder.show();
     }
 }

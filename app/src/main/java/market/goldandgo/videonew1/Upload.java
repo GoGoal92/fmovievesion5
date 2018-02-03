@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +35,8 @@ import market.goldandgo.videonew1.Adapter.Spinneradapter1;
 import market.goldandgo.videonew1.Fragment.Fragment_Movie;
 import market.goldandgo.videonew1.Object.get;
 import market.goldandgo.videonew1.Utils.Myalertdialog;
+import market.goldandgo.videonew1.Utils.imageCroper.CropImage;
+import market.goldandgo.videonew1.Utils.imageCroper.CropImageView;
 
 /**
  * Created by Go Goal on 7/4/2017.
@@ -51,7 +55,7 @@ public class Upload extends AppCompatActivity {
     Spinner sp;
 
     ArrayList<get> clist;
-
+    private File imageFile;
 
 
     @Override
@@ -93,8 +97,13 @@ public class Upload extends AppCompatActivity {
         cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gallery_Intent = new Intent(getApplicationContext(), GalleryUtil.class);
-                startActivityForResult(gallery_Intent, GALLERY_ACTIVITY_CODE);
+//                Intent gallery_Intent = new Intent(getApplicationContext(), GalleryUtil.class);
+//                startActivityForResult(gallery_Intent, GALLERY_ACTIVITY_CODE);
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(400, 180)
+                        .setFixAspectRatio(true)
+                        .start(Upload.this);
             }
         });
 
@@ -181,6 +190,23 @@ public class Upload extends AppCompatActivity {
                 BitmapDrawable ob = new BitmapDrawable(getResources(), b);
                 cover.setBackgroundDrawable(ob);
                 ivcon=true;
+            }
+        }
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                String path = resultUri.getPath();// "/mnt/sdcard/FileName.mp3"
+                filepath = path;
+////
+
+
+                imageFile = new File(path);
+
+                Picasso.with(this).load(imageFile).error(R.mipmap.ic_launcher).into(cover);
+                ivcon = true;
+//
             }
         }
     }
