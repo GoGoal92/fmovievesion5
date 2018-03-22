@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -24,6 +25,7 @@ import market.goldandgo.videonew1.Detail;
 import market.goldandgo.videonew1.Fragment.Fragment_Series;
 import market.goldandgo.videonew1.Object.Constant;
 import market.goldandgo.videonew1.Object.get;
+import market.goldandgo.videonew1.Object.ratio;
 import market.goldandgo.videonew1.R;
 import market.goldandgo.videonew1.Search;
 import market.goldandgo.videonew1.SeriesDetail;
@@ -192,7 +194,8 @@ public class SearchAdapter extends HFRecyclerView<get> {
         public ImageView movieimage;
         public ProgressBar pg;
         public LinearLayout seeallclick;
-
+        public RelativeLayout rowivrl;
+        public RelativeLayout rowtvrl[]=new RelativeLayout[4];
 
         public ItemViewHolder(View v) {
             super(v);
@@ -207,6 +210,22 @@ public class SearchAdapter extends HFRecyclerView<get> {
             seeallclick = (LinearLayout) v.findViewById(R.id.seeallclick);
             reportcon = (LinearLayout) v.findViewById(R.id.reportcon);
 
+            rowivrl= (RelativeLayout) v.findViewById(R.id.rowiv_rl);
+            rowtvrl[0]= (RelativeLayout) v.findViewById(R.id.rowtv_rl1);
+            rowtvrl[1]= (RelativeLayout) v.findViewById(R.id.rowtv_rl2);
+            rowtvrl[2]= (RelativeLayout) v.findViewById(R.id.rowtv_rl3);
+            rowtvrl[3]= (RelativeLayout) v.findViewById(R.id.rowtv_rl4);
+
+            ViewGroup.LayoutParams robot_speechsize = rowivrl.getLayoutParams();
+            robot_speechsize.width = ratio.getwidth(487);
+            robot_speechsize.height = ratio.gethetight(314);
+            rowivrl.setLayoutParams(robot_speechsize);
+
+            for (int i=0;i<rowtvrl.length;i++){
+                ViewGroup.LayoutParams rr = rowtvrl[i].getLayoutParams();
+                rr.height = ratio.gethetight(65);
+                rowtvrl[i].setLayoutParams(rr);
+            }
 
         }
     }

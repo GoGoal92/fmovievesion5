@@ -12,12 +12,12 @@ import retrofit2.http.POST;
 public interface interface_api {
 
     @FormUrlEncoded
-    @POST("v6.4/Checkversion")
+    @POST("v6.5/Checkversion")
     Call<String> Checkversion(@Field("api") String name, @Field("pid") String pid);
 
     @FormUrlEncoded
-    @POST("v4/mainpage")
-    Call<String> Mainpage(@Field("api") String name);
+    @POST("v7/mainpage")
+    Call<String> Mainpage(@Field("api") String name,@Field("pid") String pid);
 
     @FormUrlEncoded
     @POST("v4/getseeallMovie")
@@ -25,8 +25,8 @@ public interface interface_api {
 
 
     @FormUrlEncoded
-    @POST("v4/SeeallSeries")
-    Call<String> SeeallSeries(@Field("api") String name,@Field("pid") String pid);
+    @POST("v64/SeeallSeries")
+    Call<String> SeeallSeries(@Field("api") String name,@Field("pid") String pid,@Field("count") String count);
 
 
     @FormUrlEncoded

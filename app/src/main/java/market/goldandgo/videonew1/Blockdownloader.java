@@ -126,7 +126,7 @@ public class Blockdownloader extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Detail.Facebookfeedback(sdurl, sizetv.getText().toString());
+                Detail.Facebookfeedback(sdurl, getFileSize(sdsize)+"");
                 finish();
             }
         });
@@ -134,16 +134,18 @@ public class Blockdownloader extends AppCompatActivity {
         hdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Detail.Facebookfeedback(url, sizetv.getText().toString());
+                Detail.Facebookfeedback(url, getFileSize(file_size)+"");
                 finish();
             }
         });
 
     }
 
+    int file_size,sdsize;
+
    private class Downloadsize extends AsyncTask<Void,Void,Void>{
 
-        int file_size,sdsize;
+
 
         @Override
         protected Void doInBackground(Void... params) {

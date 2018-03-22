@@ -1,11 +1,13 @@
 package market.goldandgo.videonew1;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -17,23 +19,20 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-
-import com.golshadi.majid.core.DownloadManagerPro;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
-import br.com.bemobi.medescope.Medescope;
 import market.goldandgo.videonew1.API.Zawgyitextview;
 import market.goldandgo.videonew1.MyHttpclient.MyRequest;
 import market.goldandgo.videonew1.Object.Constant;
-import market.goldandgo.videonew1.Object.Downloadlist;
 import market.goldandgo.videonew1.Object.Jsonparser;
+import market.goldandgo.videonew1.Utils.Downloadhelper;
 import market.goldandgo.videonew1.Utils.Mydatabase;
-import market.goldandgo.videonew1.Utils.NotificationData;
 
 
 /**
@@ -257,30 +256,40 @@ public class FakeDialog extends AppCompatActivity {
         tv.setText("Are you sure to download this video?\n" +
                 "ဤ video ကို သင္ Download ျပဳလုပ္မည္မွာေသခ်ာပါသလား  ?");
         ab.setView(vv);
-        ab.setPositiveButton("Download", new DialogInterface.OnClickListener() {
+        ab.setPositiveButton("Add To Download List", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
 
-                DownloadManagerPro dm = new DownloadManagerPro(ac);
-                dm.init(Constant.DM_downloadfolder, 10, null);
-                int  taskToken = dm.addTask(mname, downurl, false, false);
-
-
-
-
+                String filecover = Constant.datalocation_scover + "12s23123.fmovie";
                 Mydatabase mdb=new Mydatabase(ac);
-                mdb.insertdata(taskToken+"",mname,mbsize,"1",System.currentTimeMillis()+"");
-
-
+                mdb.insertdata(downurl+"",mname,"0",filecover,System.currentTimeMillis()+"");
                 Intent it=new Intent(ac,Mydownloadmanager.class);
                 ac.startActivity(it);
+
+
                 webviewdownloader.finishactivity();
-                Mydownloadmanager.finishactivity();
                 ac.finish();
 
             }
-        }).setNegativeButton("Cancel", null).show();
+        }).setNegativeButton("  Copy  ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                setClipboard(ac,downurl);
+                Toast.makeText(ac,"Copied Link",Toast.LENGTH_SHORT).show();
+
+            }
+        }).setNeutralButton("Cancel", null).show();
     }
 
+    private static void setClipboard(Context context, String text) {
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(text);
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+            clipboard.setPrimaryClip(clip);
+        }
+    }
 }

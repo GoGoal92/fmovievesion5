@@ -1,8 +1,9 @@
 package market.goldandgo.videonew1.Adapter;
 
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +11,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.golshadi.majid.core.DownloadManagerPro;
-import com.golshadi.majid.report.listener.DownloadManagerListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import market.goldandgo.videonew1.Mydownloadmanager;
-import market.goldandgo.videonew1.Object.Constant;
+import br.com.bemobi.medescope.Medescope;
+import br.com.bemobi.medescope.callback.DownloadStatusCallback;
 import market.goldandgo.videonew1.Object.Downloadlist;
 import market.goldandgo.videonew1.Object.get;
 import market.goldandgo.videonew1.R;
-import market.goldandgo.videonew1.Utils.Mydatabase;
+
+import static android.content.Context.DOWNLOAD_SERVICE;
+import static com.google.android.gms.internal.zzahn.runOnUiThread;
 
 /**
  * Created by Go Goal on 12/3/2016.
@@ -30,14 +30,16 @@ public class Downloadadapter extends RecyclerView.Adapter<Downloadadapter.Contac
 
     static Activity ac;
     static ArrayList<get> list;
-    Mydatabase mdb;
-
+    Medescope mMedescope;
+    DownloadManager downloadManager;
     public Downloadadapter(Activity getactivity, ArrayList<get> list1) {
 
-        mdb = new Mydatabase(getactivity);
-        list = new ArrayList<>();
         list = list1;
+
         ac = getactivity;
+
+        downloadManager = (DownloadManager)ac.getSystemService(DOWNLOAD_SERVICE);
+
     }
 
     @Override
@@ -50,21 +52,69 @@ public class Downloadadapter extends RecyclerView.Adapter<Downloadadapter.Contac
     public void onBindViewHolder(final ContactViewHolder holder, final int position) {
 
 
-        holder.tsize.setText(list.get(position).getDmsize()+" / "+list.get(position).getDmsize());
         holder.mtitle.setText(list.get(position).getDmname());
-        holder.pg.setProgress(100);
-
         holder.mclose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mdb.delete_row(list.get(position).getDmid());
-                list=mdb.getcompletelist();
-                notifyDataSetChanged();
-              //  Mydownloadmanager.deletedownload(position);
+
+                downloadManager.remove(Integer.parseInt(list.get(position).getTasktoken()));
             }
         });
 
 
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                boolean downloading = true;
+
+                while (downloading) {
+
+                    int downloadid=Integer.parseInt(list.get(position).getTasktoken());
+                    DownloadManager.Query q = new DownloadManager.Query();
+                    q.setFilterById(downloadid);
+
+                    Cursor cursor = downloadManager.query(q);
+                    cursor.moveToFirst();
+                    int bytes_downloaded = cursor.getInt(cursor
+                            .getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                    int bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+
+                    if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
+                        downloading = false;
+                    }
+
+                    final double dl_progress = (bytes_downloaded / bytes_total) * 100;
+
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            holder.pg.setProgress((int) dl_progress);
+
+                        }
+                    });
+
+                    cursor.close();
+                }
+
+            }
+        }).start();
+
+
+
+
+
+
+
+
+    }
+
+    private void stopdownload(String s) {
+        mMedescope.cancel(s);
 
     }
 
@@ -74,30 +124,25 @@ public class Downloadadapter extends RecyclerView.Adapter<Downloadadapter.Contac
         return list.size();
     }
 
-    public void refresh(ArrayList<get> list1) {
-        list = list1;
-        notifyDataSetChanged();
-    }
+
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mtitle,  tsize;
+        public TextView mtitle,mprogress;
         public ImageView mclose;
-
         public ProgressBar pg;
 
         public ContactViewHolder(View v) {
             super(v);
 
-            mtitle = (TextView) v.findViewById(R.id.textView3);
-            tsize = (TextView) v.findViewById(R.id.sizedown);
-            mclose = (ImageView) v.findViewById(R.id.close);
-            pg = (ProgressBar) v.findViewById(R.id.progressBar2);
+            mtitle= (TextView) v.findViewById(R.id.textView3);
+            mprogress= (TextView) v.findViewById(R.id.percent);
+            mclose= (ImageView) v.findViewById(R.id.close);
+            pg= (ProgressBar) v.findViewById(R.id.progressBar2);
+
 
 
         }
 
     }
-
-
 }

@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -24,6 +25,7 @@ import market.goldandgo.videonew1.Adapter.Series_seealladapter;
 import market.goldandgo.videonew1.MyHttpclient.MyRequest;
 import market.goldandgo.videonew1.Object.Jsonparser;
 import market.goldandgo.videonew1.Object.get;
+import market.goldandgo.videonew1.Object.ratio;
 
 /**
  * Created by Go Goal on 6/30/2017.
@@ -41,6 +43,9 @@ public class SeriesDetail extends AppCompatActivity {
     static AppCompatActivity ac;
     static Series_episodeadapter adapter;
     static TextView readmore;
+
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,6 +103,9 @@ public class SeriesDetail extends AppCompatActivity {
 
         prefs = getSharedPreferences("dlist",
                 Context.MODE_PRIVATE);
+
+
+
 
 
 

@@ -1,15 +1,19 @@
 package market.goldandgo.videonew1;
 
+import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.ClipboardManager;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -26,8 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.golshadi.majid.core.DownloadManagerPro;
-import com.golshadi.majid.report.listener.DownloadManagerListener;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -44,6 +46,8 @@ import market.goldandgo.videonew1.Object.Downloadlist;
 import market.goldandgo.videonew1.Object.Jsonparser;
 import market.goldandgo.videonew1.Object.Phonesize;
 import market.goldandgo.videonew1.Object.get;
+import market.goldandgo.videonew1.Object.ratio;
+import market.goldandgo.videonew1.Utils.Downloadhelper;
 import market.goldandgo.videonew1.Utils.Mydatabase;
 
 /**
@@ -63,7 +67,7 @@ public class Detail extends AppCompatActivity {
     static Zawgyitextview mdetial;
     static String filecover = "";
     WebView wb;
-
+    public RelativeLayout rowivrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -225,6 +229,12 @@ public class Detail extends AppCompatActivity {
         } else {
             MyRequest.getMoviedetail(mid);
         }
+
+
+        rowivrl= (RelativeLayout) findViewById(R.id.rlvideo);
+        ViewGroup.LayoutParams robot_speechsize = rowivrl.getLayoutParams();
+        robot_speechsize.height = ratio.gethetight(350);
+        rowivrl.setLayoutParams(robot_speechsize);
 
     }
 
@@ -396,27 +406,7 @@ public class Detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Mydatabase mdb=new Mydatabase(ac);
-                ArrayList<get> ddlist=new ArrayList<get>();
-                ddlist=mdb.getlist();
-                if (ddlist.size()>4){
 
-                    AlertDialog.Builder ab = new AlertDialog.Builder(ac);
-                    ab.setTitle("ERROR");
-                    View vc = ac.getLayoutInflater().inflate(R.layout.ontextzawwgyirow, null);
-                    ab.setView(vc);
-                    Zawgyitextview tv = (Zawgyitextview) vc.findViewById(R.id.ttv);
-                    tv.setText("Maximum size of fmovie download manager is 5 . Cant download over 5 task at once.\n" +
-                            "\n" +
-                            "FMOVIE download manager ၏ တစ္ၾကိမ္တည္း အမ်ားဆံုး Download လုပ္ယူႏိုင္စြမ္းမွာ ၅ခုသာ ျဖစ္သည္။\n");
-
-                    ab.setPositiveButton("Okay",null);
-
-                    ab.setCancelable(false);
-                    ab.show();
-
-
-                }else{
                     if (acctype.equals("0")) {
 
                         Intent it = new Intent(ac, webviewdownloader.class);
@@ -435,9 +425,6 @@ public class Detail extends AppCompatActivity {
                         ac.startActivity(it);
 
                     }
-
-                }
-
 
 
             }
@@ -462,10 +449,9 @@ public class Detail extends AppCompatActivity {
         ab.setTitle("Confirmation");
         View vv = ac.getLayoutInflater().inflate(R.layout.ontextzawwgyirow, null);
         Zawgyitextview tv = (Zawgyitextview) vv.findViewById(R.id.ttv);
-        tv.setText("Are you sure to download this video?\n" +
-                "ဤ video ကို သင္ Download ျပဳလုပ္မည္မွာေသခ်ာပါသလား  ?");
+        tv.setText("FMOVIE Download Manager ျဖင့္ ေဒါင္းမည္ဆိုပါက Download ကို ႏိုပ္ပါ။ Download Link အား ရယူလိုပါက Copy ကို ႏိုပ္ပါ");
         ab.setView(vv);
-        ab.setPositiveButton("Download", new DialogInterface.OnClickListener() {
+        ab.setPositiveButton("Add To Download List", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -475,29 +461,60 @@ public class Detail extends AppCompatActivity {
                 if (mname.contains("'")) {
                     mname = mname.replace("'", "");
                 }
-                DownloadManagerPro dm = new DownloadManagerPro(ac);
-                dm.init(Constant.DM_downloadfolder, 10, null);
-                int  taskToken = dm.addTask(mname, hDlink, false, false);
+                //DownloadManagerPro dm = new DownloadManagerPro(ac);
+             /*   dm.init(Constant.DM_downloadfolder, 10, null);
+                int  taskToken = dm.addTask(mname, hDlink, false, false);*/
 
+                if (type.equals("series")) {
+
+                    sid = ac.getIntent().getExtras().getString("sid");
+                    filecover = Constant.datalocation_scover + "s" + sid + ".fmovie";
+
+                } else {
+                    filecover = Constant.datalocation_movie + mid + ".fmovie";
+                }
+
+
+                Mydatabase mdb=new Mydatabase(ac);
+                mdb.insertdata(hDlink+"",mname,"0",filecover,System.currentTimeMillis()+"");
+                Intent it=new Intent(ac,Mydownloadmanager.class);
+                ac.startActivity(it);
 
               /*  Intent it=new Intent(ac, SecondActivity.class);
                 it.putExtra("a",taskToken);
                 ac.startActivity(it);*/
 
-                Mydatabase mdb=new Mydatabase(ac);
+             /*   Mydatabase mdb=new Mydatabase(ac);
                 mdb.insertdata(taskToken+"",mname,mbsize,"1",System.currentTimeMillis()+"");
 
                // Downloadlist.addlist(mname, mbsize, taskToken ,"true", hDlink);
-                Intent it=new Intent(ac,Mydownloadmanager.class);
-                ac.startActivity(it);
+                */
 
 
             }
-        }).setNegativeButton("Cancel", null).show();
+        }).setNegativeButton("  Copy  ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                setClipboard(ac,hDlink);
+                Toast.makeText(ac,"Copied Link",Toast.LENGTH_SHORT).show();
+
+            }
+        }).setNeutralButton("Cancel", null).show();
 
 
     }
 
+
+    private static void setClipboard(Context context, String text) {
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(text);
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+            clipboard.setPrimaryClip(clip);
+        }
+    }
 
 
 

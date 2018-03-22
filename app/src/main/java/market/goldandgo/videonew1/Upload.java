@@ -97,13 +97,21 @@ public class Upload extends AppCompatActivity {
         cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(Build.VERSION.SDK_INT>=24){
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .setAspectRatio(400, 180)
+                            .setFixAspectRatio(true)
+                            .start(Upload.this);
+                }else{
+                  //  contentUri=Uri.fromFile(f);
+                    Intent gallery_Intent = new Intent(getApplicationContext(), GalleryUtil.class);
+                startActivityForResult(gallery_Intent, GALLERY_ACTIVITY_CODE);
+                }
 //                Intent gallery_Intent = new Intent(getApplicationContext(), GalleryUtil.class);
 //                startActivityForResult(gallery_Intent, GALLERY_ACTIVITY_CODE);
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .setAspectRatio(400, 180)
-                        .setFixAspectRatio(true)
-                        .start(Upload.this);
+
             }
         });
 

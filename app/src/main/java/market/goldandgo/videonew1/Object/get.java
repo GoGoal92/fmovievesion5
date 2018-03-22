@@ -1,5 +1,6 @@
 package market.goldandgo.videonew1.Object;
 
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -128,6 +129,15 @@ public class get {
     String imagesdpath;
     RelativeLayout backrl;
     ProgressBar imgpg;
+    ImageView ivv;
+
+    public ImageView getIvv() {
+        return ivv;
+    }
+
+    public void setIvv(ImageView ivv) {
+        this.ivv = ivv;
+    }
 
     public String getImagesdpath() {
         return imagesdpath;
@@ -194,5 +204,31 @@ public class get {
 
     public void setDmid(String dmid) {
         this.dmid = dmid;
+    }
+
+    String adsid,adsurl,adsimage;
+
+    public String getAdsid() {
+        return adsid;
+    }
+
+    public void setAdsid(String adsid) {
+        this.adsid = adsid;
+    }
+
+    public String getAdsurl() {
+        return adsurl;
+    }
+
+    public void setAdsurl(String adsurl) {
+        this.adsurl = adsurl;
+    }
+
+    public String getAdsimage() {
+        return adsimage;
+    }
+
+    public void setAdsimage(String adsimage) {
+        this.adsimage = adsimage;
     }
 }

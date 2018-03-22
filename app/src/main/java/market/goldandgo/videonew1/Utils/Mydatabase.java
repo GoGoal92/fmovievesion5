@@ -6,8 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import market.goldandgo.videonew1.Object.get;
+import market.goldandgo.videonew1.entity.AppInfo;
 
 /**
  * Created by Go Goal on 1/27/2018.
@@ -18,13 +20,13 @@ public class Mydatabase extends SQLiteOpenHelper {
     SQLiteDatabase dbase;
 
     public Mydatabase(Context context) {
-        super(context, "fmovie.db", null, 1);
+        super(context, "fmovie7.db", null, 2);
 
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE fmovie(taskid CHAR, name CHAR, size CHAR, statusdown CHAR,id CHAR)";
+        String sql = "CREATE TABLE fmovie1(taskid CHAR, name CHAR, size CHAR, statusdown CHAR,id CHAR)";
         db.execSQL(sql);
     }
 
@@ -36,7 +38,7 @@ public class Mydatabase extends SQLiteOpenHelper {
 
     public void insertdata(String tasktoken,String name,String size,String statusdown,String id) {
         dbase = getWritableDatabase();
-        String sql = "INSERT INTO fmovie VALUES ('"+tasktoken+"','" + name + "','" + size + "','" + statusdown + "','" + id + "')";
+        String sql = "INSERT INTO fmovie1 VALUES ('"+tasktoken+"','" + name + "','" + size + "','" + statusdown + "','" + id + "')";
         dbase.execSQL(sql);
         dbase.close();
     }
@@ -46,7 +48,7 @@ public class Mydatabase extends SQLiteOpenHelper {
 
         ArrayList<get> list =new ArrayList<get>();
         dbase = getReadableDatabase();
-        String sel = "SELECT * FROM fmovie WHERE statusdown='0' OR statusdown='1' ";
+        String sel = "SELECT * FROM fmovie1 WHERE statusdown='0' OR statusdown='1' ";
         Cursor c = dbase.rawQuery(sel, null);
         if (c.moveToFirst()) {
             do {
@@ -73,7 +75,7 @@ public class Mydatabase extends SQLiteOpenHelper {
 
         ArrayList<get> list =new ArrayList<get>();
         dbase = getReadableDatabase();
-        String sel = "SELECT * FROM fmovie WHERE statusdown='com'";
+        String sel = "SELECT * FROM fmovie1 WHERE statusdown='com'";
         Cursor c = dbase.rawQuery(sel, null);
         if (c.moveToFirst()) {
             do {
@@ -96,22 +98,22 @@ public class Mydatabase extends SQLiteOpenHelper {
 
     public void update_row(String dmid, String statusdm) {
         dbase = getWritableDatabase();
-        String sql = "UPDATE  fmovie SET statusdown='"+statusdm+"' WHERE id='"+dmid+"'";
+        String sql = "UPDATE  fmovie1 SET statusdown='"+statusdm+"' WHERE id='"+dmid+"'";
         dbase.execSQL(sql);
         dbase.close();
     }
 
     public void delete_row(String id) {
         dbase = getWritableDatabase();
-        String sql = "DELETE FROM fmovie WHERE id='"+id+"'";
+        String sql = "DELETE FROM fmovie1 WHERE id='"+id+"'";
         dbase.execSQL(sql);
         dbase.close();
     }
 
 
-    public void update_complete(long taskId) {
+    public void update_complete(String taskId) {
         dbase = getWritableDatabase();
-        String sql = "UPDATE  fmovie SET statusdown='com' WHERE taskid='"+taskId+"'";
+        String sql = "UPDATE  fmovie1 SET size='com' WHERE id='"+taskId+"'";
         dbase.execSQL(sql);
         dbase.close();
     }
@@ -120,7 +122,7 @@ public class Mydatabase extends SQLiteOpenHelper {
 
         String name="Fmovie";
         dbase = getReadableDatabase();
-        String sel = "SELECT * FROM fmovie WHERE taskid='"+taskId+"' ";
+        String sel = "SELECT * FROM fmovie1 WHERE taskid='"+taskId+"' ";
         Cursor c = dbase.rawQuery(sel, null);
 
         if (c.moveToFirst()) {
@@ -135,5 +137,30 @@ public class Mydatabase extends SQLiteOpenHelper {
      //   dbase.close();
 
         return name;
+    }
+
+    public List<AppInfo> getdata() {
+        ArrayList<AppInfo> list =new ArrayList<AppInfo>();
+        dbase = getReadableDatabase();
+        String sel = "SELECT * FROM fmovie1 ";
+        Cursor c = dbase.rawQuery(sel, null);
+        if (c.moveToFirst()) {
+            do {
+
+                AppInfo appInfo = new AppInfo();
+
+                appInfo.setUrl(c.getString(0));
+                appInfo.setName(c.getString(1));
+                appInfo.setComplete(c.getString(2));
+                appInfo.setImage(c.getString(3));
+                appInfo.setId(c.getString(4));
+                list.add(appInfo);
+
+            } while (c.moveToNext());
+
+        }
+        dbase.close();
+
+        return list;
     }
 }

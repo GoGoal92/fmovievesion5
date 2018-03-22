@@ -362,7 +362,7 @@ public class MyRequest {
 
 
         interface_api service = retrofit.create(interface_api.class);
-        Call<String> result = service.Mainpage(Constant.apikey);
+        Call<String> result = service.Mainpage(Constant.apikey,phoneid.getid());
         result.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -387,7 +387,7 @@ public class MyRequest {
 
     }
 
-    public static void getseeallMovie(String s, String cate) {
+    public static void getseeallMovie(String s, String cate,final String a) {
 
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(sec, TimeUnit.SECONDS)
@@ -409,7 +409,13 @@ public class MyRequest {
 
                     Fragment_Movie.Feedback(response.body().toString());
                 } catch (Exception e) {
-                    Fragment_Movie.Feedback_Error();
+                    if (a.equals("b")){
+                        Fragment_Movie.Feedback_Error();
+                    }else{
+                        Fragment_Movie.Feedback_ErrorSW();
+                    }
+
+
                     e.printStackTrace();
 
                 }
@@ -418,13 +424,17 @@ public class MyRequest {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Fragment_Movie.Feedback_Error();
+                if (a.equals("b")){
+                    Fragment_Movie.Feedback_Error();
+                }else{
+                    Fragment_Movie.Feedback_ErrorSW();
+                }
                 t.printStackTrace();
             }
         });
     }
 
-    public static void getseeallseries() {
+    public static void getseeallseries(String count,final String a) {
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(sec, TimeUnit.SECONDS)
                 .readTimeout(sec, TimeUnit.SECONDS)
@@ -436,7 +446,7 @@ public class MyRequest {
 
 
         interface_api service = retrofit.create(interface_api.class);
-        Call<String> result = service.SeeallSeries(Constant.apikey,phoneid.getid());
+        Call<String> result = service.SeeallSeries(Constant.apikey,phoneid.getid(),count);
         result.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -445,7 +455,14 @@ public class MyRequest {
 
                     Fragment_Series.Feedback(response.body().toString());
                 } catch (Exception e) {
-                    Fragment_Series.Feedback_Error();
+
+                    if (a.equals("b")){
+                        Fragment_Series.Feedback_Error();
+                    }else{
+                        Fragment_Series.Feedback_Error_SW();
+                    }
+
+
                     e.printStackTrace();
 
                 }
@@ -454,7 +471,11 @@ public class MyRequest {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Fragment_Series.Feedback_Error();
+                if (a.equals("b")){
+                    Fragment_Series.Feedback_Error();
+                }else{
+                    Fragment_Series.Feedback_Error_SW();
+                }
                 t.printStackTrace();
             }
         });
@@ -547,6 +568,39 @@ public class MyRequest {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Freegold.Feedback_Error();
+                t.printStackTrace();
+            }
+        });
+
+    }
+
+
+    public static void buyserieshome(String buymid) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.host).addConverterFactory(new Stringconverter()).build();
+
+
+        interface_api service = retrofit.create(interface_api.class);
+        Call<String> result = service.buyseries(Constant.apikey, phoneid.getid(),buymid);
+        result.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+                try {
+
+                    Fragment_Home.Feedback_buy(response.body().toString());
+                } catch (Exception e) {
+                    Fragment_Home.Feedback_buyError();
+                    e.printStackTrace();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Fragment_Home.Feedback_buyError();
                 t.printStackTrace();
             }
         });
@@ -704,16 +758,15 @@ public class MyRequest {
 
                     Fragment_Movie.Feedbackwithoutspinner(response.body().toString());
                 } catch (Exception e) {
-                    Fragment_Movie.Feedback_Error();
+                    Fragment_Movie.Feedback_ErrorSW();
                     e.printStackTrace();
-
                 }
 
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Fragment_Movie.Feedback_Error();
+                Fragment_Movie.Feedback_ErrorSW();
                 t.printStackTrace();
             }
         });

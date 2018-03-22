@@ -4,8 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/animationlibary/animationlibary.iml" filepath="$PROJECT_DIR$/animationlibary/animationlibary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/circleindicator/circleindicator.iml" filepath="$PROJECT_DIR$/circleindicator/circleindicator.iml" />
       <module fileurl="file://$PROJECT_DIR$/easypermissions/easypermissions.iml" filepath="$PROJECT_DIR$/easypermissions/easypermissions.iml" />
       <module fileurl="file://$PROJECT_DIR$/fmovievesion5.iml" filepath="$PROJECT_DIR$/fmovievesion5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraryADM/libraryADM.iml" filepath="$PROJECT_DIR$/libraryADM/libraryADM.iml" />
       <module fileurl="file://$PROJECT_DIR$/medescope/medescope.iml" filepath="$PROJECT_DIR$/medescope/medescope.iml" />
     </modules>
   </component>

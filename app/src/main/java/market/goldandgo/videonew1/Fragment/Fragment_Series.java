@@ -1,13 +1,16 @@
 package market.goldandgo.videonew1.Fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -36,6 +39,8 @@ import java.util.ArrayList;
 import market.goldandgo.videonew1.Adapter.Movie_seealladapter;
 import market.goldandgo.videonew1.Adapter.Series_seealladapter;
 import market.goldandgo.videonew1.Adapter.Spinneradapter;
+import market.goldandgo.videonew1.Freegold;
+import market.goldandgo.videonew1.MainActivity;
 import market.goldandgo.videonew1.MyHttpclient.MyRequest;
 import market.goldandgo.videonew1.Object.Constant;
 import market.goldandgo.videonew1.Object.Jsonparser;
@@ -52,6 +57,8 @@ import market.goldandgo.videonew1.Utils.calculate_st;
 public class Fragment_Series extends Fragment {
 
 
+    static  int count=1;
+
     public static Fragment_Series newInstance() {
         Bundle args = new Bundle();
         Fragment_Series fragment = new Fragment_Series();
@@ -61,22 +68,32 @@ public class Fragment_Series extends Fragment {
 
     static FragmentActivity ac;
 
+    String reloadd="b";
+
     @Override
     public void onResume() {
         super.onResume();
-        MyRequest.getseeallseries();
+        MyRequest.getseeallseries(count+"",reloadd);
+        reloadd="a";
+        MainActivity.Pagerenable(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        reloadd="b";
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ac = getActivity();
-        //MyRequest.getseeallseries();
+
 
     }
 
-    static ArrayList<get> list, clist,list1,list2,list3,list4;
-    static Spinneradapter adapteree;
+    static ArrayList<get> list, list1,list2,list3,list4;
+  //  static Spinneradapter adapteree;
     static RecyclerView rv;
     LinearLayoutManager llm;
     static Series_seealladapter adapter;
@@ -87,35 +104,42 @@ public class Fragment_Series extends Fragment {
     static TextView priceinfo, totalseries;
     static Button buy, cancel, okay;
     static MySpinner sp;
+    private TextView textView;
+    private static int defaultSelect;
+    private String[] arr=new String[5];
+    static SwipeRefreshLayout swipeLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.series, container, false);
 
+        swipeLayout = (SwipeRefreshLayout) v.findViewById(R.id.refresh_layout);
+        swipeLayout.setColorSchemeColors(Color.GREEN, Color.RED, Color.BLUE, Color.CYAN);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MyRequest.getseeallseries(count+"","a");
+            }
+        });
 
-        clist = new ArrayList<>();
-        get eg1 = new get();
-        eg1.setTitle("LATEST SERIES");
-        clist.add(eg1);
+        arr[0]="LATEST SERIES";
+        arr[1]="ENGLISH SERIES";
+        arr[2]="KOREA SERIES";
+        arr[3]="CHINA SERIES";
+        arr[4]="ANIME SERIES";
 
-        get eg2 = new get();
-        eg2.setTitle("ENGLISH SERIES");
-        clist.add(eg2);
+        textView = (TextView) v.findViewById(R.id.testingHelloseries);
+        textView.setText("LATEST SERIES");
+        defaultSelect=0;
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        get eg3 = new get();
-        eg3.setTitle("KOREA SERIES");
-        clist.add(eg3);
+                yearOnclick(arr);
+            }
+        });
 
-        get eg4 = new get();
-        eg4.setTitle("CHINA SERIES");
-        clist.add(eg4);
-
-
-        get eg5 = new get();
-        eg5.setTitle("ANIME SERIES");
-        clist.add(eg5);
-
-        sp = (MySpinner) v.findViewById(R.id.spinner2);
+       /* sp = (MySpinner) v.findViewById(R.id.spinner2);
         adapteree = new Spinneradapter(ac, clist);
         sp.setAdapter(adapteree);
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -131,7 +155,7 @@ public class Fragment_Series extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
 
         pg = (AVLoadingIndicatorView) v.findViewById(R.id.avi);
@@ -149,6 +173,8 @@ public class Fragment_Series extends Fragment {
             public void onClick(View v) {
                 buylaout.setVisibility(View.GONE);
                 okay.setVisibility(View.GONE);
+                Intent it=new Intent(ac, Freegold.class);
+                ac.startActivity(it);
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +206,7 @@ public class Fragment_Series extends Fragment {
                 network.setVisibility(View.GONE);
                 pg.setVisibility(View.VISIBLE);
                 pg.show();
-                MyRequest.getseeallseries();
+                MyRequest.getseeallseries(count+"","b");
             }
         });
 
@@ -193,7 +219,31 @@ public class Fragment_Series extends Fragment {
         list = new ArrayList<get>();
         adapter = new Series_seealladapter(ac, list);
         rv.setAdapter(adapter);
+        rv.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            int ydy = 0;
 
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int visibleItemCount = llm.getChildCount();
+                int totalItemCount = llm.getItemCount();
+                int pastVisibleItems = llm.findFirstVisibleItemPosition();
+                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                    count++;
+                    adapter.load_pg(true);
+                    MyRequest.getseeallseries(count+"","a");
+                }
+
+
+            }
+        });
 
         return v;
     }
@@ -232,7 +282,7 @@ public class Fragment_Series extends Fragment {
     static String progressimage = "0";
 
     public static void Feedback(String s) {
-
+        swipeLayout.setRefreshing(false);
         network.setVisibility(View.GONE);
         mainlayout.setVisibility(View.VISIBLE);
         pg.setVisibility(View.GONE);
@@ -245,18 +295,36 @@ public class Fragment_Series extends Fragment {
         list3 = new ArrayList<>();
         list4 = new ArrayList<>();
 
-        list = Jsonparser.getseriesalllist(s);
-        list1 = Jsonparser.getseriesalllist1(s,1+"");
-        list2 = Jsonparser.getseriesalllist1(s,2+"");
-        list3 = Jsonparser.getseriesalllist1(s,3+"");
-        list4 = Jsonparser.getseriesalllist1(s,4+"");
+        String all=Jsonparser.getonestring(s,"all");
+
+        list = Jsonparser.getseriesalllist(all);
+        list1 = Jsonparser.getseriesalllist1(all,1+"");
+        list2 = Jsonparser.getseriesalllist1(all,2+"");
+        list3 = Jsonparser.getseriesalllist1(all,3+"");
+        list4 = Jsonparser.getseriesalllist1(all,4+"");
+
+        String tseries=Jsonparser.getonestring(s,"total");
+
 
 
         totalseries.setVisibility(View.VISIBLE);
-        totalseries.setText(Html.fromHtml("<b>Total Series " + list.size() + "</b>"));
+        totalseries.setText(Html.fromHtml("<b>Total Series " + Integer.parseInt(tseries) + "</b>"));
 
 
-        adapter.refresh(list);
+        if (defaultSelect==0){
+            adapter.refresh(list);
+        }else if (defaultSelect==1){
+            adapter.refresh(list1);
+        }else if (defaultSelect==2){
+            adapter.refresh(list2);
+        }else if (defaultSelect==3){
+            adapter.refresh(list3);
+        }else if (defaultSelect==4){
+            adapter.refresh(list4);
+        }
+
+
+
         adapter.load_pg(false);
         Imagecondition();
 
@@ -281,7 +349,7 @@ public class Fragment_Series extends Fragment {
     }
 
     public static void Feedback_Error() {
-
+        swipeLayout.setRefreshing(false);
         pg.setVisibility(View.GONE);
         pg.hide();
         network.setVisibility(View.VISIBLE);
@@ -340,6 +408,12 @@ public class Fragment_Series extends Fragment {
 
     }
 
+    public static void Feedback_Error_SW() {
+        swipeLayout.setRefreshing(false);
+        adapter.load_pg(false);
+    }
+
+
     static class Downloadseeallmovie extends AsyncTask<Void, Void, Void> {
 
         String imgurl, imagename;
@@ -393,5 +467,24 @@ public class Fragment_Series extends Fragment {
             progressimage = "0";
             Imagecondition();
         }
+    }
+
+    private void yearOnclick(final String[] yearArr) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext(), R.style.MyAlertDialogTheme);
+        builder.setTitle("Please select Movie Types");
+        builder.setSingleChoiceItems(yearArr, defaultSelect, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                defaultSelect = which;
+                textView.setText(arr[defaultSelect]);
+
+                changetype(defaultSelect);
+                dialog.dismiss();
+            }
+        });
+
+
+        builder.show();
     }
 }

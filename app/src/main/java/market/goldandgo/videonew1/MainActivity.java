@@ -24,12 +24,13 @@ import market.goldandgo.videonew1.Object.Constant;
 import market.goldandgo.videonew1.Object.Downloadlist;
 import market.goldandgo.videonew1.Object.Phonesize;
 import market.goldandgo.videonew1.Object.phoneid;
+import market.goldandgo.videonew1.Utils.CustomViewPager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     RelativeLayout[] indicatorrl = new RelativeLayout[4];
     Fragmentadapter_Main adapter;
-    ViewPager pager;
+    static CustomViewPager pager;
 
     ImageView homeiv,movieiv,seriesiv,menuiv;
     AppCompatActivity ac;
@@ -78,10 +79,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-        pager= (ViewPager) findViewById(R.id.viewpager);
+        pager= (CustomViewPager) findViewById(R.id.viewpager);
         adapter=new Fragmentadapter_Main(getSupportFragmentManager());
         pager.setAdapter(adapter);
         pager.setOffscreenPageLimit(4);
+
 
 
         changeui(0);
@@ -190,4 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public static void Pagerenable(boolean b) {
+      //  pager.setPagingEnabled(false);
+    }
 }

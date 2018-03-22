@@ -98,7 +98,11 @@ public class Jsonparser {
         try {
 
             JSONObject jojo = new JSONObject(s);
-            JSONArray id = jojo.getJSONArray(top);
+            String toprated=jojo.getString("other");
+
+            JSONObject otherobject = new JSONObject(toprated);
+
+            JSONArray id = otherobject.getJSONArray(top);
             for (int i = 0; i < id.length(); i++) {
                 JSONObject c1 = id.getJSONObject(i);
                 get eg = new get();
@@ -122,10 +126,11 @@ public class Jsonparser {
 
         } catch (Exception e) {
 
+            Log.e("Jsonparese",e.toString());
+
         }
         return list;
     }
-
 
 
     public static ArrayList<get> getsearchalllist(String s) {
@@ -155,7 +160,7 @@ public class Jsonparser {
 
         } catch (Exception e) {
 
-            Log.e("jsonerror",e.toString());
+            Log.e("jsonerror", e.toString());
         }
         return list;
     }
@@ -186,7 +191,7 @@ public class Jsonparser {
 
         } catch (Exception e) {
 
-            Log.e("jsonerror",e.toString());
+            Log.e("jsonerror", e.toString());
         }
         return list;
     }
@@ -263,7 +268,7 @@ public class Jsonparser {
         return list;
     }
 
-    public static ArrayList<get> getseriesalllist1(String s,String po) {
+    public static ArrayList<get> getseriesalllist1(String s, String po) {
         ArrayList<get> list = new ArrayList<>();
         try {
 
@@ -296,15 +301,16 @@ public class Jsonparser {
     }
 
 
-
-
-
     public static ArrayList<get> getseriesrated(String s, String top) {
         ArrayList<get> list = new ArrayList<>();
         try {
 
             JSONObject jojo = new JSONObject(s);
-            JSONArray id = jojo.getJSONArray(top);
+            String toprated=jojo.getString("other");
+            JSONObject otherobject = new JSONObject(toprated);
+            JSONArray id = otherobject.getJSONArray(top);
+
+
             for (int i = 0; i < id.length(); i++) {
                 JSONObject c1 = id.getJSONObject(i);
                 get eg = new get();
@@ -312,6 +318,7 @@ public class Jsonparser {
                 eg.setTitle(Constant.cleanstring(c1.getString("title"), c1.getString("vstatus")));
                 eg.setLike(c1.getString("like"));
                 eg.setView(c1.getString("view"));
+                eg.setPrice(c1.getString("price"));
 
                 String path = "";
                 if (c1.getString("mid").contains("s")) {
@@ -322,8 +329,31 @@ public class Jsonparser {
                 }
                 eg.setImage(path);
                 eg.setEpisode(c1.getString("ep"));
-                eg.setDetail("<b>"+c1.getString("detail")+"<b>");
+                eg.setDetail("<b>" + c1.getString("detail") + "<b>");
+                eg.setMine(c1.getString("mine"));
+                list.add(eg);
+            }
 
+
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public static ArrayList<get> getadlist(String s) {
+        ArrayList<get> list = new ArrayList<>();
+        try {
+
+            JSONObject jojo = new JSONObject(s);
+            JSONArray id = jojo.getJSONArray("ads");
+            for (int i = 0; i < id.length(); i++) {
+                JSONObject c1 = id.getJSONObject(i);
+                get eg = new get();
+                eg.setAdsid(c1.getString("id"));
+                eg.setAdsurl(c1.getString("url"));
+                String path = Constant.datalocation_ads + c1.getString("id")+".fmovie";
+                eg.setAdsimage(path);
                 list.add(eg);
             }
 

@@ -1,1 +1,1 @@
-include ':app', ':medescope', ':easypermissions', ':animationlibary'
+include ':app', ':medescope', ':easypermissions', ':animationlibary', ':libraryADM', ':circleindicator'

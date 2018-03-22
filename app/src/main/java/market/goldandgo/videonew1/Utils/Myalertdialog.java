@@ -65,6 +65,7 @@ public class Myalertdialog {
 
                 Intent it = new Intent(ac, MainActivity.class);
                 ac.startActivity(it);
+                ac.finish();
             }
         });
         ab.setCancelable(false);
@@ -141,5 +142,27 @@ public class Myalertdialog {
         ab.setCancelable(false);
         ab.show();
 
+    }
+
+    public static void show_msgfromserver(String msg, final AppCompatActivity ac, String aContinue, String s) {
+
+        AlertDialog.Builder ab = new AlertDialog.Builder(ac);
+        ab.setTitle(s);
+        View v = ac.getLayoutInflater().inflate(R.layout.ontextzawwgyirow, null);
+        ab.setView(v);
+        Zawgyitextview tv = (Zawgyitextview) v.findViewById(R.id.ttv);
+        tv.setText(msg);
+
+        ab.setPositiveButton(aContinue, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent it = new Intent(ac, MainActivity.class);
+                ac.startActivity(it);
+                ac.finish();
+
+            }
+        });
+        ab.setCancelable(false);
+        ab.show();
     }
 }

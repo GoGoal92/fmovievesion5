@@ -4,6 +4,9 @@
     <string name="evp_retry">RETRY</string>
     <string name="banner">ca-app-pub-2558089172112996/5861603265</string>
 
+    <string name="Download">Download</string>
+    <string name="Error">Error</string>
+    <string name="Complete">Complete</string>
 
 
     <!--Crop Image View-->

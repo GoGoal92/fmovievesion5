@@ -1,48 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/spl"
-        android:clickable="true"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:clickable="true">
+
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_above="@+id/textView2"
+                android:layout_gravity="center"
+                android:layout_marginBottom="18dp"
+                android:src="@drawable/appicon" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/shadoweffect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="My FB Movie"
+                android:textSize="24sp" />
+
+            <RelativeLayout
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/splashrec">
+
+                <market.goldandgo.videonew1.API.Zawgyitextview
+                    android:id="@+id/infoo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="ဤ app ၏ သေဘာတရားမွာ FB မွာတင္ထားတဲ့ ဇာတ္ကားမ်ားကို ျပန္ျပတာျဖစ္တဲ့ အတြက္ Operator ေတြက FB Package ထဲက ျဖတ္သြားတာပါ ။
+
+ဒါေၾကာင့္ App အတြက္ အသံုးျပဳရတဲ့ Data ဟာ Mobile Data နဲ႔ျဖစ္ျပီး ဇာတ္ကားၾကည့္တာ ေဒါင္းတာဘဲ FB plan နဲ႔ပါ ။"
+                    android:textColor="@color/blue_out"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
 
         <TextView
-            style="@style/shadoweffect"
-            android:textSize="24sp"
-            android:text="My FB Movie"
+            android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:id="@+id/textView2" />
-
-        <ImageView
-            android:src="@drawable/appicon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/imageView"
-            android:layout_above="@+id/textView2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="18dp" />
-
-
-        <TextView
-            android:textSize="11sp"
+            android:layout_marginBottom="15dp"
             android:text="Loading Domain... "
             android:textColor="@color/white"
+            android:textSize="11sp" />
+
+
+        <TextView
+            android:id="@+id/vname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/loading"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="15dp" />
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:text="V 6.4.1"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
 
     </RelativeLayout>
 

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import market.goldandgo.videonew1.Coingame;
 import market.goldandgo.videonew1.Freegold;
+import market.goldandgo.videonew1.MainActivity;
 import market.goldandgo.videonew1.Mydownloadmanager;
 import market.goldandgo.videonew1.Mymovies;
 import market.goldandgo.videonew1.Object.Constant;
@@ -138,5 +139,11 @@ public class Fragment_menu extends Fragment {
 
     public static void sentgold(String remain) {
         usergold.setText(calculate_st.format(Long.parseLong(remain)) + " Gold");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MainActivity.Pagerenable(true);
     }
 }

@@ -3,10 +3,12 @@ package market.goldandgo.videonew1;
 /**
  * Created by Go Goal on 1/24/2018.
  */
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,7 +40,7 @@ import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Util;
 import com.wang.avi.AVLoadingIndicatorView;
 
-public class Myexoplayer extends AppCompatActivity  {
+public class Myexoplayer extends AppCompatActivity {
 
     String url;
     SimpleExoPlayer player;
@@ -49,6 +51,9 @@ public class Myexoplayer extends AppCompatActivity  {
     private DataSource.Factory mediaDataSourceFactory;
     AVLoadingIndicatorView pg;
     AppCompatActivity ac;
+    long seekvalue = 0;
+    long avaliablebuffer = 0;
+    long watedtime = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,12 +62,12 @@ public class Myexoplayer extends AppCompatActivity  {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.exo_main);
-        pg= (AVLoadingIndicatorView) findViewById(R.id.imgpg);
+        pg = (AVLoadingIndicatorView) findViewById(R.id.imgpg);
         pg.show();
-        ac=this;
+        ac = this;
 
 //Remove notification bar
-        url=getIntent().getExtras().getString("url");
+        url = getIntent().getExtras().getString("url");
 
 
         shouldAutoPlay = true;
@@ -70,7 +75,7 @@ public class Myexoplayer extends AppCompatActivity  {
         mediaDataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "mediaPlayerSample"), (TransferListener<? super DataSource>) bandwidthMeter);
 
 
-        SimpleExoPlayerView simpleExoPlayerView= (SimpleExoPlayerView) findViewById(R.id.video_view);
+        SimpleExoPlayerView simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.video_view);
         TrackSelection.Factory videoTrackSelectionFactory =
                 new AdaptiveTrackSelection.Factory(bandwidthMeter);
         trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
@@ -89,8 +94,6 @@ public class Myexoplayer extends AppCompatActivity  {
         player.prepare(mediaSource);
 
 
-
-
         player.addListener(new ExoPlayer.EventListener() {
             @Override
             public void onTimelineChanged(Timeline timeline, Object manifest) {
@@ -104,16 +107,25 @@ public class Myexoplayer extends AppCompatActivity  {
 
             @Override
             public void onLoadingChanged(boolean isLoading) {
-                    if (isLoading){
-                        pg.setVisibility(View.VISIBLE);
-                        pg.show();
-                    }
+                avaliablebuffer = player.getBufferedPosition();
+
             }
 
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-                switch(playbackState) {
+
+
+
+                switch (playbackState) {
                     case ExoPlayer.STATE_BUFFERING:
+
+                    //    Log.e("e", player.getCurrentPosition() + " > buffer " + avaliablebuffer);
+
+                        if (player.getCurrentPosition() > avaliablebuffer) {
+
+                            pg.setVisibility(View.VISIBLE);
+                            pg.show();
+                        }
 
                         break;
                     case ExoPlayer.STATE_ENDED:
@@ -123,20 +135,33 @@ public class Myexoplayer extends AppCompatActivity  {
                         break;
 
                     case ExoPlayer.STATE_READY:
+
+                        pg.setVisibility(View.GONE);
+                        seekvalue = player.getCurrentPosition();
+
+                        break;
+
+
+                    default:
                         pg.setVisibility(View.GONE);
 
                         break;
-                    default:
-
-                        break;
                 }
+
+
             }
 
             @Override
             public void onPlayerError(ExoPlaybackException error) {
 
-                ac.finish();
-                Toast.makeText(ac,"Network Fail",Toast.LENGTH_SHORT).show();
+                seekvalue = player.getCurrentPosition();
+                pg.setVisibility(View.VISIBLE);
+                pg.show();
+                DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+                MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(url),
+                        mediaDataSourceFactory, extractorsFactory, null, null);
+                player.prepare(mediaSource);
+                player.seekTo(seekvalue);
 
             }
 
@@ -157,11 +182,12 @@ public class Myexoplayer extends AppCompatActivity  {
     }
 
 
-    private void pausePlayer(){
+    private void pausePlayer() {
         player.setPlayWhenReady(false);
         player.getPlaybackState();
     }
-    private void startPlayer(){
+
+    private void startPlayer() {
         player.setPlayWhenReady(true);
         player.getPlaybackState();
     }
@@ -178,7 +204,6 @@ public class Myexoplayer extends AppCompatActivity  {
         super.onResume();
         startPlayer();
     }
-
 
 
 }

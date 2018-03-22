@@ -91,7 +91,6 @@ public class Download_data {
             Bitmap myBitmap = BitmapFactory.decodeFile(list.get(count).getImagesdpath());
             Drawable myDrawable = new BitmapDrawable(ac.getResources(), myBitmap);
             list.get(count).getBackrl().setBackground(myDrawable);
-            list.get(count).getImgpg().setVisibility(View.GONE);
             count++;
 
             if (count<list.size()){

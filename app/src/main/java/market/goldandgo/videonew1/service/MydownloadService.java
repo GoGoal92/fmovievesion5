@@ -153,7 +153,7 @@ public class MydownloadService extends Service {
                 bi.putExtra("status", "complete");
                 bi.putExtra("downloadedLength", 0);
                 sendBroadcast(bi);
-                mdb.update_complete(taskId);
+               // mdb.update_complete(taskId);
                 String dnmae = "fmovie";
                 try {
                     dnmae = mdb.getdetailname(taskId);
@@ -169,7 +169,7 @@ public class MydownloadService extends Service {
             @Override
             public void connectionLost(long taskId) {
                 bi.putExtra("taskId", taskId);
-                bi.putExtra("mypercent", 99);
+                bi.putExtra("mypercent", 0);
                 bi.putExtra("status", "retry");
                 bi.putExtra("downloadedLength", 0);
                 sendBroadcast(bi);
@@ -243,7 +243,7 @@ public class MydownloadService extends Service {
             notificationManager.cancel((int) taskid);
             dm.delete(taskid, true);
         } catch (Exception e) {
-            Mydownloadmanager.reload();
+            //Mydownloadmanager.reload();
         }
 
 
@@ -254,7 +254,7 @@ public class MydownloadService extends Service {
         try {
             dm.pauseDownload(taskid);
         } catch (Exception e) {
-            Mydownloadmanager.reload();
+            //Mydownloadmanager.reload();
         }
 
     }
@@ -265,7 +265,7 @@ public class MydownloadService extends Service {
             dm.startDownload(taskid);
         } catch (Exception e) {
             e.printStackTrace();
-            Mydownloadmanager.reload();
+          //  Mydownloadmanager.reload();
         }
     }
 }

@@ -3,11 +3,13 @@ package market.goldandgo.videonew1.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 
 import market.goldandgo.videonew1.Adapter.Movie_seealladapter;
 import market.goldandgo.videonew1.Adapter.Spinneradapter;
+import market.goldandgo.videonew1.MainActivity;
 import market.goldandgo.videonew1.MyHttpclient.MyRequest;
 import market.goldandgo.videonew1.Object.Constant;
 import market.goldandgo.videonew1.Object.Jsonparser;
@@ -66,11 +69,16 @@ public class Fragment_Movie extends Fragment {
         return clist;
     }
 
+    String reloadd="b";
+
     @Override
     public void onResume() {
         super.onResume();
-        MyRequest.getseeallMovie(count + "", cate);
+        MyRequest.getseeallMovie(count + "", cate,reloadd);
+        reloadd="a";
+        MainActivity.Pagerenable(true);
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,9 +120,27 @@ public class Fragment_Movie extends Fragment {
     static RelativeLayout network;
     static TextView totalmovie;
 
+    static SwipeRefreshLayout swipeLayout;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        cate = "0";
+        reloadd="b";
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.movie, container, false);
+        swipeLayout = (SwipeRefreshLayout) v.findViewById(R.id.refresh_layout);
+        swipeLayout.setColorSchemeColors(Color.GREEN, Color.RED, Color.BLUE, Color.CYAN);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MyRequest.getseeallMovie(count + "", cate,"a");
+            }
+        });
+
 
         clist = new ArrayList<>();
         get eg = new get();
@@ -164,7 +190,7 @@ public class Fragment_Movie extends Fragment {
                 network.setVisibility(View.GONE);
                 pg.setVisibility(View.VISIBLE);
                 pg.show();
-                MyRequest.getseeallMovie(count + "", cate);
+                MyRequest.getseeallMovie(count + "", cate,"b");
             }
         });
 
@@ -212,8 +238,10 @@ public class Fragment_Movie extends Fragment {
 
     static String progressimage = "0";
 
-    public static void Feedback(String s) {
 
+
+    public static void Feedback(String s) {
+        swipeLayout.setRefreshing(false);
         network.setVisibility(View.GONE);
         mainlayout.setVisibility(View.VISIBLE);
         pg.setVisibility(View.GONE);
@@ -225,11 +253,12 @@ public class Fragment_Movie extends Fragment {
 
         totalmovie.setText(Html.fromHtml("<b>Total Movies " + Jsonparser.getonestring(s, "moviecount") + "</b>"));
 
+
         clist = Jsonparser.getcatelist(s);
         objDays = clist.toArray();
 
 
-        adapteree.refresh(clist);
+        //adapteree.refresh(clist);
 
 
         adapter.refresh(list);
@@ -237,6 +266,8 @@ public class Fragment_Movie extends Fragment {
         Imagecondition();
 
     }
+
+
 
     private static void Imagecondition() {
         for (int i = 0; i < list.size(); i++) {
@@ -257,7 +288,7 @@ public class Fragment_Movie extends Fragment {
     }
 
     public static void Feedback_Error() {
-
+        swipeLayout.setRefreshing(false);
         pg.setVisibility(View.GONE);
         pg.hide();
         network.setVisibility(View.VISIBLE);
@@ -266,6 +297,7 @@ public class Fragment_Movie extends Fragment {
     }
 
     public static void Feedbackwithoutspinner(String s) {
+        swipeLayout.setRefreshing(false);
         network.setVisibility(View.GONE);
         mainlayout.setVisibility(View.VISIBLE);
         pg.setVisibility(View.GONE);
@@ -312,6 +344,12 @@ public class Fragment_Movie extends Fragment {
         adapter.refresh(list);
         adapter.load_pg(false);
         Imagecondition();
+    }
+
+    public static void Feedback_ErrorSW() {
+
+        swipeLayout.setRefreshing(false);
+        adapter.load_pg(false);
     }
 
 
@@ -363,36 +401,16 @@ public class Fragment_Movie extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
-            new Processforadapter().execute();
-
-
-        }
-    }
-
-    static class Processforadapter extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            try {
-
-                adapter.refresh(list);
-
-            } catch (Exception e) {
-
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+            adapter.refresh(list);
             adapter.load_pg(false);
             progressimage = "0";
             Imagecondition();
+
+
         }
     }
+
+
 
     private void yearOnclick(final String[] yearArr) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext(), R.style.MyAlertDialogTheme);
